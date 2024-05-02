@@ -35,7 +35,9 @@ javafx {
 }
 
 dependencies {
-
+  implementation 'com.google.zxing:core:3.4.1'
+  implementation 'com.google.zxing:core:3.4.1:javadoc'
+  implementation 'com.google.zxing:javase:3.5.1'
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
