@@ -35,7 +35,7 @@ public class LoginController {
         String nombreUsuario = UserLogin.getText();
         String contrasena = PassLogin.getText();
 
-        boolean esAdmin = false; // Lógica de autenticación simulada
+        boolean esAdmin = true; // Lógica de autenticación simulada
 
         Stage newStage = new Stage(); // Inicializar el stage para la nueva ventana
 

@@ -9,9 +9,24 @@ plugins {
 group 'daiana.abde'
 version '1.0'
 
+/******** repositoris de Baixada ************/
+
 repositories {
   mavenCentral()
+  maven {
+    url "https://gitlab.com/api/v4/projects/55244596/packages/maven"
+    credentials(HttpHeaderCredentials) {
+      name = "Private-Token"
+      value = gitLabPrivateToken // the variable resides in ~/.gradle/gradle.properties
+    }
+    authentication {
+      header(HttpHeaderAuthentication)
+    }
+  }
+
 }
+
+/******** !repositoris de Baixada ************/
 
 ext {
   junitVersion = '5.9.2'
@@ -35,6 +50,7 @@ javafx {
 }
 
 dependencies {
+  implementation 'abderrahim.ouabou:Fitxers:2.0'
   implementation 'com.google.zxing:core:3.4.1'
   implementation 'com.google.zxing:core:3.4.1:javadoc'
   implementation 'com.google.zxing:javase:3.5.1'

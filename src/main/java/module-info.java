@@ -1,11 +1,11 @@
 module daiana.abde.projecteabdedaiana {
     requires javafx.controls;
     requires javafx.fxml;
-    //requires Fitxers;
+
     requires com.google.zxing;
     requires com.google.zxing.javase;
     requires java.desktop;
-
+    requires Fitxers;
 
 
     opens daiana.abde.projecteabdedaiana to javafx.fxml;
