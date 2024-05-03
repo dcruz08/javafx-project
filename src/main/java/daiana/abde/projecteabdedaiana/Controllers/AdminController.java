@@ -46,6 +46,7 @@ public class AdminController {
     }
 
     private static void altaUsuario() {
+    Usuarios usuario = new CrearUsuario();
 
         try {
             User.guardarUsuari();
