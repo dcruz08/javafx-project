@@ -6,6 +6,7 @@ module daiana.abde.projecteabdedaiana {
     requires com.google.zxing.javase;
     requires java.desktop;
     requires Fitxers;
+    requires missatges.i.alertes;
 
 
     opens daiana.abde.projecteabdedaiana to javafx.fxml;

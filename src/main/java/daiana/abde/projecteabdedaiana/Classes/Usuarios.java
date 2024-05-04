@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Usuarios implements Serializable {
 
     static final private String nomDir=".dat";
-    static final private String nomFitxerUsuari=nomDir+"/usuaris.dat";
-    static final private String nomFitxerAdmin=nomDir+"/administradors.dat";
+    public static final String nomFitxerUsuari=nomDir+"/usuaris.dat";
+    public static final String nomFitxerAdmin=nomDir+"/administradors.dat";
     static final Fitxers f=new Fitxers();
 
     //<editor-fold desc="Variables">
@@ -53,6 +54,10 @@ public class Usuarios implements Serializable {
         return contrasena;
     }
 
+    public boolean isEsAdmin() {
+        return esAdmin;
+    }
+
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
@@ -60,42 +65,51 @@ public class Usuarios implements Serializable {
         this.NomUsuari = NomUsuari;
     }
 
-    public boolean isEsAdmin() {
-        return esAdmin;
-    }
-
     public void setEsAdmin(boolean esAdmin) {
         this.esAdmin = esAdmin;
     }
 
-    public String getNomFitxer(){
-        if(isEsAdmin()){
-            return nomFitxerUsuari;
-        }else{
+
+
+    public String getNomFitxer(String Fitxer){
+        if(Objects.equals(Fitxer, "/administradors.dat")){
             return nomFitxerAdmin;
+
+        }else{
+            return nomFitxerUsuari;
         }
 
     }
+
+
 
     //</editor-fold>
 
     //<editor-fold desc="Mètodes">
 
-    public void guardarUsuari() throws IOException {
+    public void guardarUsuario(String tipoUsuario) throws IOException {
         if (!f.existeix(nomDir))
             f.creaDirectori(nomDir);
-        f.escriuObjectFitxer(this,getNomFitxer(),true);
-    }
-    private static List<Usuarios> converteixALlibre(List <Object> lObj){
-        List<Usuarios> llibres=new ArrayList<>();
-        for (Object o: lObj){
-            llibres.add((Usuarios) o);
+        String nombreArchivo;
+        if (tipoUsuario.equals("administrador")) {
+            nombreArchivo = nomFitxerAdmin;
+        } else {
+            nombreArchivo = nomFitxerUsuari;
         }
-        return llibres;
+        f.escriuObjectFitxer(this, nombreArchivo, true);
+    }
+
+
+    public  List<Usuarios> converteixALlibre(List<Object> contingut){
+        List<Usuarios> lUsuarios=new ArrayList<>();
+        for (Object o: contingut){
+            lUsuarios.add((Usuarios) o);
+        }
+        return lUsuarios;
 
     }
-    public List<Usuarios> retornaLlibres() {
-        return converteixALlibre(f.retornaFitxerObjecteEnLlista(getNomFitxer()));
+    public List<Usuarios> retornaUsuarios(String nombreArchivo) {
+        return converteixALlibre(f.retornaFitxerObjecteEnLlista(nombreArchivo));
     }
 
     //</editor-fold>

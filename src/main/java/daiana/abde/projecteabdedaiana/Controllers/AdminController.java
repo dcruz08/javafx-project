@@ -1,27 +1,46 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
 import daiana.abde.projecteabdedaiana.Classes.Usuarios;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import vicent.Bellver.MissatgesJavaSwing;
+
+import java.util.List;
 
 
 public class AdminController {
-
     static Usuarios User = new Usuarios();
 
+    static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
+
+
+    static final String nomFitxerAdmin = Usuarios.nomFitxerAdmin;
+    static final String nomFitxerUsuari = Usuarios.nomFitxerUsuari;
+    static List<Usuarios> llistaUsuarios = User.retornaUsuarios(nomFitxerAdmin);
+
     @FXML
-    private TextField UsuarioField;
+
+    public MenuButton MenuBtnUsuarios;
     @FXML
-    private TextField ContrasenaField;
+    public TableView<Usuarios> TableMostrarUsuarios;
+
+    public TextArea TextAreaUsuarios;
+    public RadioButton RBtnAdministrador;
+    public RadioButton RBtnTodos;
+    public RadioButton RBtnUsuario;
+    public ToggleGroup TipoDeUsuario;
+    public Button BtnMostrar;
+    @FXML
+    private  TextField UsuarioField;
+    @FXML
+    private  TextField ContrasenaField;
     @FXML
     private Button BtnCrear;
     @FXML
-    private RadioButton RBtnAdmin;
+    private  RadioButton RBtnAdmin;
     @FXML
     private RadioButton RBtnUsuarioNormal;
-
 
     public void initialize(){
 
@@ -29,34 +48,74 @@ public class AdminController {
 
     }
 
-    @FXML
-    private  Usuarios CrearUsuario()  {
-        String usuario = UsuarioField.getText();
-        String contrasena = ContrasenaField.getText();
-        boolean Admin;
-        Admin=esAdmin();
-        Usuarios User=new Usuarios(usuario,contrasena,Admin);
-        System.out.println("Usuario: " + usuario+"contrasena: " + contrasena+"Admin: " + Admin);
-        return User;
+    public String getUsuario() {
+        RadioButton selectedRadioButton = (RadioButton) TipoDeUsuario.getSelectedToggle();
+        String usuario = selectedRadioButton.getText();
+        System.out.println(usuario);
+        if (usuario.equals("Administrador")) {
+            return Usuarios.nomFitxerAdmin;
+        } else if (usuario.equals("Usuario")) {
+            return Usuarios.nomFitxerUsuari;
+        } else {
+            return Usuarios.nomFitxerUsuari; // Otra lógica si no se selecciona ni Administrador ni Usuario
+        }
     }
 
 
-    private boolean esAdmin(){
+
+    @FXML
+    private Usuarios CrearUsuario() {
+        String usuario = UsuarioField.getText();
+        String contrasena = ContrasenaField.getText();
+        boolean admin = esAdmin();
+        Usuarios user = new Usuarios(usuario, contrasena,admin);
+        return user;
+    }
+
+    @FXML
+    private void altaUsuario(ActionEvent event) {
+        Usuarios usuario = CrearUsuario();
+        String tipoUsuario = RBtnAdmin.isSelected() ? "administrador" : "usuario normal";
+
+        try {
+            usuario.guardarUsuario(tipoUsuario);
+            System.err.println("Usuario guardado correctamente");
+        } catch (Exception e) {
+            System.err.println("Error al guardar el usuario");
+        }
+    }
+
+
+    public  boolean esAdmin(){
         return RBtnAdmin.isSelected();
     }
 
-    private static void altaUsuario() {
-    Usuarios usuario = new CrearUsuario();
+    @FXML
+    public void mostrarUsuarios() {
 
-        try {
-            User.guardarUsuari();
-            System.err.println("Llibre guardat correctament");
-        } catch (Exception e) {
-            System.err.println("Error al guardar el llibre");
+     List<Usuarios> persones = User.retornaUsuarios(getUsuario());;
+        String text = "";
+
+        int i = 0;
+
+        for (Usuarios p : persones) {
+            if (i % 5 == 0)
+                text = text + "\n";
+
+            text = text + p.getNomUsuari() + " " + p.getContrasena() + "\n";
+
+            i++;
         }
+        // Establecer el texto en el TextAreaUsuarios
+        TextAreaUsuarios.setText(text);
 
-                            // si guardem, actualitzem la llista
+
+
     }
 
 
+    public void mostrarUsuarioss(ActionEvent actionEvent) {
+        mostrarUsuarios();
+
+    }
 }
