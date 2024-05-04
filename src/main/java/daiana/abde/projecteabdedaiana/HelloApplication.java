@@ -14,9 +14,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("usuario-normal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Projecte | Grup 10");
+        stage.setTitle("Projecte | Grup 10 | Daiana | Abdel");
         stage.setScene(scene);
         stage.show();
 
@@ -24,5 +24,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+
+
     }
 }

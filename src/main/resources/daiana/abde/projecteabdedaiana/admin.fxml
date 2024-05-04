@@ -1,19 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="daiana.abde.projecteabdedaiana.Controllers.AdminController">
   <tabs>
     <Tab text="Crear usuarios">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <TextField fx:id="UsuarioField" layoutX="56.0" layoutY="101.0" />
+          <Label layoutX="56.0" layoutY="74.0" text="Usuario" />
+          <Label layoutX="56.0" layoutY="155.0" text="Contraseña" />
+          <TextField fx:id="ContrasenaField" layoutX="56.0" layoutY="173.0" />
+          <Label layoutX="56.0" layoutY="212.0" text="Tipo de usuario" />
+          <Button fx:id="BtnCrear" layoutX="60.0" layoutY="287.0" mnemonicParsing="false" onAction="#altaUsuario" text="Crear" />
+          <RadioButton fx:id="RBtnAdmin" layoutX="61.0" layoutY="236.0" mnemonicParsing="false" text="Administrador">
+                  <toggleGroup>
+                     <ToggleGroup fx:id="admin" />
+                  </toggleGroup></RadioButton>
+          <RadioButton fx:id="RBtnUsuarioNormal" layoutX="177.0" layoutY="236.0" mnemonicParsing="false" text="Usuario Normal" toggleGroup="$admin" />
+        </AnchorPane>
       </content>
     </Tab>
     <Tab text="Mostrar usuarios">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="TableMostrarUsuarios" layoutX="30.0" layoutY="28.0" prefHeight="314.0" prefWidth="250.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Usuario " />
+                      <TableColumn prefWidth="75.0" text="Contraseña" />
+                        <TableColumn prefWidth="97.5999755859375" text="Tipo de Usuario" />
+                    </columns>
+                  </TableView>
+                   <TextArea fx:id="TextAreaUsuarios" layoutX="328.0" layoutY="150.0" prefHeight="200.0" prefWidth="200.0" />
+                   <RadioButton fx:id="RBtnAdministrador" layoutX="321.0" layoutY="60.0" mnemonicParsing="false" text="Administrador">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="TipoDeUsuario" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="RBtnTodos" layoutX="321.0" layoutY="38.0" mnemonicParsing="false" selected="true" text="Todos" toggleGroup="$TipoDeUsuario"  />
+                  <RadioButton fx:id="RBtnUsuario" layoutX="322.0" layoutY="86.0" mnemonicParsing="false" text="Usuario" toggleGroup="$TipoDeUsuario" />
+                  <Button fx:id="BtnMostrar" layoutX="476.0" layoutY="56.0" mnemonicParsing="false" onAction="#mostrarUsuarioss" text="Mostrar" />
+               </children></AnchorPane>
       </content>
     </Tab>
   </tabs>
