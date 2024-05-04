@@ -11,8 +11,8 @@ import java.util.List;
 
 public class AdminController {
     static Usuarios User = new Usuarios();
-
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
+
 
 
     static final String nomFitxerAdmin = Usuarios.nomFitxerAdmin;
@@ -32,17 +32,17 @@ public class AdminController {
     public ToggleGroup TipoDeUsuario;
     public Button BtnMostrar;
     @FXML
-    private  TextField UsuarioField;
+    private TextField UsuarioField;
     @FXML
-    private  TextField ContrasenaField;
+    private TextField ContrasenaField;
     @FXML
     private Button BtnCrear;
     @FXML
-    private  RadioButton RBtnAdmin;
+    private RadioButton RBtnAdmin;
     @FXML
     private RadioButton RBtnUsuarioNormal;
 
-    public void initialize(){
+    public void initialize() {
 
         RBtnAdmin.setSelected(true);
 
@@ -62,53 +62,54 @@ public class AdminController {
     }
 
 
-
     @FXML
     private Usuarios CrearUsuario() {
         String usuario = UsuarioField.getText();
         String contrasena = ContrasenaField.getText();
         boolean admin = esAdmin();
-        Usuarios user = new Usuarios(usuario, contrasena,admin);
-        return user;
+        return new Usuarios(usuario, contrasena, admin);
     }
 
     @FXML
-    private void altaUsuario(ActionEvent event) {
+    private void altaUsuario(ActionEvent event){
         Usuarios usuario = CrearUsuario();
-        String tipoUsuario = RBtnAdmin.isSelected() ? "administrador" : "usuario normal";
+//        String tipoUsuario = RBtnAdmin.isSelected() ? "administrador" : "usuario normal";
 
         try {
-            usuario.guardarUsuario(tipoUsuario);
+            usuario.guardarUsuario(esAdmin()); // Guardar el usuario en el archivo correspondiente
             System.err.println("Usuario guardado correctamente");
         } catch (Exception e) {
             System.err.println("Error al guardar el usuario");
         }
+
     }
 
 
-    public  boolean esAdmin(){
+
+
+    public boolean esAdmin() {
         return RBtnAdmin.isSelected();
     }
 
     @FXML
     public void mostrarUsuarios() {
 
-     List<Usuarios> persones = User.retornaUsuarios(getUsuario());;
-        String text = "";
+        List<Usuarios> persones = User.retornaUsuarios(getUsuario());
+        ;
+        StringBuilder text = new StringBuilder();
 
         int i = 0;
 
         for (Usuarios p : persones) {
             if (i % 5 == 0)
-                text = text + "\n";
+                text.append("\n");
 
-            text = text + p.getNomUsuari() + " " + p.getContrasena() + "\n";
+            text.append(p.getNomUsuari()).append(" ").append(p.getContrasena()).append("\n");
 
             i++;
         }
         // Establecer el texto en el TextAreaUsuarios
-        TextAreaUsuarios.setText(text);
-
+        TextAreaUsuarios.setText(text.toString());
 
 
     }

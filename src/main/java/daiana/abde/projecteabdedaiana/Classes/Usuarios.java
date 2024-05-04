@@ -28,11 +28,13 @@ public class Usuarios implements Serializable {
     }
 
     public Usuarios(String NomUsuari,String contrasena, boolean esAdmin) {
-        this.id = id;
+        this.id=System.identityHashCode(this);
         this.NomUsuari = NomUsuari;
         this.contrasena = contrasena;
         this.esAdmin = esAdmin;
     }
+
+
 
 
     //</editor-fold>
@@ -87,20 +89,21 @@ public class Usuarios implements Serializable {
 
     //<editor-fold desc="Mètodes">
 
-    public void guardarUsuario(String tipoUsuario) throws IOException {
+    public void guardarUsuario(boolean esAdmin) throws IOException {
         if (!f.existeix(nomDir))
             f.creaDirectori(nomDir);
+
         String nombreArchivo;
-        if (tipoUsuario.equals("administrador")) {
+        if (esAdmin) {
             nombreArchivo = nomFitxerAdmin;
         } else {
             nombreArchivo = nomFitxerUsuari;
         }
-        f.escriuObjectFitxer(this, nombreArchivo, true);
+        f.escriuobjecteFitxer(this, nombreArchivo, true);
     }
 
 
-    public  List<Usuarios> converteixALlibre(List<Object> contingut){
+    public  List<Usuarios> converteixAUsuario(List<Object> contingut){
         List<Usuarios> lUsuarios=new ArrayList<>();
         for (Object o: contingut){
             lUsuarios.add((Usuarios) o);
@@ -109,7 +112,7 @@ public class Usuarios implements Serializable {
 
     }
     public List<Usuarios> retornaUsuarios(String nombreArchivo) {
-        return converteixALlibre(f.retornaFitxerObjecteEnLlista(nombreArchivo));
+        return converteixAUsuario(f.retornaFitxerObjecteEnLlista(nombreArchivo));
     }
 
     //</editor-fold>

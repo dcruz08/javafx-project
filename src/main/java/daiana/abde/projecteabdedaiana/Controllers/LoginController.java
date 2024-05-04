@@ -10,13 +10,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import vicent.Bellver.MissatgesJavaSwing;
 
 import java.io.IOException;
+import java.util.List;
 
+import static daiana.abde.projecteabdedaiana.Classes.Usuarios.nomFitxerAdmin;
+import static daiana.abde.projecteabdedaiana.Classes.Usuarios.nomFitxerUsuari;
 
 
 public class LoginController {
     private Usuarios usuarios;
+    static Usuarios User = new Usuarios();
+    static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
 
     @FXML
@@ -32,11 +38,8 @@ public class LoginController {
     // Método para manejar el evento de inicio de sesión
     @FXML
     private void iniciarSesion() throws IOException {
-        String nombreUsuario = UserLogin.getText();
-        String contrasena = PassLogin.getText();
 
-        boolean esAdmin = true; // Lógica de autenticación simulada
-
+        boolean esAdmin = buscarUsuario(); // Lógica de autenticación simulada
         Stage newStage = new Stage(); // Inicializar el stage para la nueva ventana
 
         if (esAdmin) {
@@ -64,6 +67,49 @@ public class LoginController {
         // Cerrar la ventana de inicio de sesión
 
     }
+
+    private String existeixUsuario(String nom, String contrasena) {
+        // Buscar en el archivo de administradores
+        List<Usuarios> admins = User.retornaUsuarios(nomFitxerAdmin);
+        for (Usuarios admin : admins) {
+            if (admin.getNomUsuari().equals(nom) && admin.getContrasena().equals(contrasena)) {
+                return "UsuarioAdministrador"; // Si se encuentra como administrador
+            }
+        }
+
+        // Buscar en el archivo de usuarios normales
+        List<Usuarios> usuarios = User.retornaUsuarios(nomFitxerUsuari);
+        for (Usuarios usuario : usuarios) {
+            if (usuario.getNomUsuari().equals(nom) && usuario.getContrasena().equals(contrasena)) {
+                return "UsuarioNormal"; // Si se encuentra como usuario normal
+            }
+        }
+
+        // Si no se encuentra en ninguno de los archivos, devolver un mensaje de error
+        return "Usuario no encontrado";
+    }
+
+    private Boolean buscarUsuario() {
+        String nombreUsuario = UserLogin.getText();
+        String contrasena = PassLogin.getText();
+
+        // Verificar si es administrador o usuario normal
+        String resultado = existeixUsuario(nombreUsuario, contrasena);
+
+        // Manejar el resultado según el tipo de dato devuelto
+        if (resultado.equals("UsuarioAdministrador")) {
+            return true;
+        } else if (resultado.equals("UsuarioNormal")) {
+            return false;
+        } else {
+            // Si el resultado no es un booleano, mostrar el mensaje de error
+            ms.missatgeError(resultado);
+            return null; // Retornar null para indicar que no se pudo determinar el estado del usuario
+        }
+    }
+
+
+
 
 
 }
