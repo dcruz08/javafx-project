@@ -5,7 +5,9 @@ import pkgFitxers.Fitxers;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Producto implements Serializable {
@@ -15,10 +17,11 @@ public class Producto implements Serializable {
 
     //<editor-fold desc="PROPIETATS">
     private int id;
+    private String codigoBarras;
     private String nombre;
     private String descripcion;
     private double precio;
-    private String fechaCaducidad;
+    private LocalDate fechaCaducidad;
 
     //</editor-fold>
 
@@ -26,13 +29,15 @@ public class Producto implements Serializable {
 
     public Producto() {}
 
-    public Producto(String nombre, String descripcion, double precio, String fechaCaducidad) {
+    public Producto(String codigoBarras, String nombre, String descripcion, double precio, LocalDate fechaCaducidad) {
         this.id = System.identityHashCode(this);
+        this.codigoBarras = codigoBarras;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.fechaCaducidad = fechaCaducidad;
     }
+
 
     //</editor-fold>
 
@@ -55,21 +60,25 @@ public class Producto implements Serializable {
         return precio;
     }
 
-    public String getFechaCaducidad() {
+    public LocalDate getFechaCaducidad() {
         return fechaCaducidad;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
     }
 
     //</editor-fold>
 
     //<editor-fold desc="Methods">
 
-    public void guardarProducto() {
+    public void guardarProducto() throws Exception {
         try {
             if (!f.existeix(dir))
                 f.creaDirectori(dir);
             f.escriuObjecteFitxer(this, nomFitxer, true);
         } catch (Exception e) {
-            System.out.println("No s'ha pogut guardar el producte");
+            throw new Exception("No s'ha pogut guardar el producte");
         }
     }
     private static List<Producto> convertirAProductos(List <Object> lObj){
