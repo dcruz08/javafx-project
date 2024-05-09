@@ -1,9 +1,12 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
 import daiana.abde.projecteabdedaiana.Classes.Usuarios;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import vicent.Bellver.MissatgesJavaSwing;
 
 import java.util.List;
@@ -13,39 +16,73 @@ public class AdminController {
     static Usuarios User = new Usuarios();
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
-
-
     static final String nomFitxerAdmin = Usuarios.nomFitxerAdmin;
     static final String nomFitxerUsuari = Usuarios.nomFitxerUsuari;
     static List<Usuarios> llistaUsuarios = User.retornaUsuarios(nomFitxerAdmin);
 
     @FXML
-
     public MenuButton MenuBtnUsuarios;
+
     @FXML
     public TableView<Usuarios> TableMostrarUsuarios;
 
+    @FXML
     public TextArea TextAreaUsuarios;
+
+    @FXML
     public RadioButton RBtnAdministrador;
+
+    @FXML
     public RadioButton RBtnTodos;
+
+    @FXML
     public RadioButton RBtnUsuario;
+
+    @FXML
     public ToggleGroup TipoDeUsuario;
+
+    @FXML
     public Button BtnMostrar;
+
+    @FXML
+    public TableColumn<Usuarios, String> ColumnaTipoUsuario;
+
+    @FXML
+    public TableColumn<Usuarios, String> ColumnaApellido;
+
+    @FXML
+    public TableColumn<Usuarios, String> ColumnaNombre;
+
+    @FXML
+    public TableColumn<Usuarios, String> ColumnaContrasena;
+
+    @FXML
+    public TableColumn<Usuarios, String> ColumnaUsuario;
+
+    @FXML
+    private TextField ApellidoField;
+
+    @FXML
+    private TextField NombreField;
+
     @FXML
     private TextField UsuarioField;
+
     @FXML
     private TextField ContrasenaField;
+
     @FXML
     private Button BtnCrear;
+
     @FXML
     private RadioButton RBtnAdmin;
+
     @FXML
     private RadioButton RBtnUsuarioNormal;
 
+    @FXML
     public void initialize() {
-
         RBtnAdmin.setSelected(true);
-
     }
 
     public String getUsuario() {
@@ -61,31 +98,27 @@ public class AdminController {
         }
     }
 
-
     @FXML
     private Usuarios CrearUsuario() {
         String usuario = UsuarioField.getText();
         String contrasena = ContrasenaField.getText();
+        String nombre = NombreField.getText();
+        String apellido = ApellidoField.getText();
         boolean admin = esAdmin();
-        return new Usuarios(usuario, contrasena, admin);
+
+        return new Usuarios(usuario, nombre, apellido, contrasena, admin);
     }
 
     @FXML
-    private void altaUsuario(ActionEvent event){
+    private void altaUsuario(ActionEvent event) {
         Usuarios usuario = CrearUsuario();
-//        String tipoUsuario = RBtnAdmin.isSelected() ? "administrador" : "usuario normal";
-
         try {
             usuario.guardarUsuario(esAdmin()); // Guardar el usuario en el archivo correspondiente
-            System.err.println("Usuario guardado correctamente");
+            ms.missatgeInfo("Usuario guardado correctamente");
         } catch (Exception e) {
-            System.err.println("Error al guardar el usuario");
+            ms.missatgeError("Error al guardar el usuario");
         }
-
     }
-
-
-
 
     public boolean esAdmin() {
         return RBtnAdmin.isSelected();
@@ -93,30 +126,20 @@ public class AdminController {
 
     @FXML
     public void mostrarUsuarios() {
+        ObservableList<Usuarios> usuarios = FXCollections.observableArrayList(User.retornaUsuarios(getUsuario()));
 
-        List<Usuarios> persones = User.retornaUsuarios(getUsuario());
-        ;
-        StringBuilder text = new StringBuilder();
+        ColumnaUsuario.setCellValueFactory(new PropertyValueFactory<>("NomUsuari"));
+        ColumnaContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
+        ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+        ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
 
-        int i = 0;
+        ColumnaTipoUsuario.setCellValueFactory(new PropertyValueFactory<>("esAdmin"));
 
-        for (Usuarios p : persones) {
-            if (i % 5 == 0)
-                text.append("\n");
-
-            text.append(p.getNomUsuari()).append(" ").append(p.getContrasena()).append("\n");
-
-            i++;
-        }
-        // Establecer el texto en el TextAreaUsuarios
-        TextAreaUsuarios.setText(text.toString());
-
-
+        TableMostrarUsuarios.setItems(usuarios);
     }
 
-
-    public void mostrarUsuarioss(ActionEvent actionEvent) {
+    @FXML
+    public void handleMostrarUsuarios(ActionEvent event) {
         mostrarUsuarios();
-
     }
 }

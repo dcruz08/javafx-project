@@ -20,6 +20,8 @@ public class Usuarios implements Serializable {
     private String NomUsuari;
     private String contrasena;
     private boolean esAdmin;
+    private String Nombre;
+    private String Apellido;
 
     //</editor-fold>
 
@@ -27,9 +29,11 @@ public class Usuarios implements Serializable {
     public Usuarios() {
     }
 
-    public Usuarios(String NomUsuari,String contrasena, boolean esAdmin) {
+    public Usuarios(String NomUsuari,String Nombre,String Apellido ,String contrasena, boolean esAdmin) {
         this.id=System.identityHashCode(this);
         this.NomUsuari = NomUsuari;
+        this.Nombre = Nombre;
+        this.Apellido = Apellido;
         this.contrasena = contrasena;
         this.esAdmin = esAdmin;
     }
@@ -50,6 +54,14 @@ public class Usuarios implements Serializable {
     }
     public String getNomUsuari() {
         return NomUsuari;
+    }
+
+    public String getApellido() {
+        return Apellido;
+    }
+
+    public String getNombre() {
+        return Nombre;
     }
 
     public String getContrasena() {

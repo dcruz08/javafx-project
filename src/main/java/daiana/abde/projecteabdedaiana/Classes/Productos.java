@@ -15,10 +15,12 @@ public class Productos implements Serializable {
     //<editor-fold desc="PROPIETATS">
     private int id;
 
+
     private String NombreProducto;
     private String Descripcion;
     private double Precio;
      private String FechaCaducidad;
+     private int CodBarra;
     //</editor-fold>
 
     //<editor-fold desc="Constructor">
@@ -27,12 +29,14 @@ public class Productos implements Serializable {
 
     }
 
-    public Productos(String nombreProducto, String descripcion, double precio, String fechaCaducidad) {
+
+    public Productos(String nombreProducto, String descripcion, double precio, String fechaCaducidad,int codBarra) {
         this.id = System.identityHashCode(this);
         NombreProducto = nombreProducto;
         Descripcion = descripcion;
         Precio = precio;
         FechaCaducidad = fechaCaducidad;
+        CodBarra = codBarra;
     }
 
     //</editor-fold>
@@ -59,6 +63,8 @@ public class Productos implements Serializable {
     public String getFechaCaducidad() {
         return FechaCaducidad;
     }
+
+    public int getCodBarra() {return CodBarra;}
 
     public String getNomFitxer(){
         return nomFitxer;
