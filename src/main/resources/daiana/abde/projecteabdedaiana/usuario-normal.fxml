@@ -10,47 +10,49 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<?import javafx.scene.image.Image?>
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="daiana.abde.projecteabdedaiana.Controllers.UsuarioNormalController">
   <tabs>
       <Tab text="Crear producto">
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="410.0" prefWidth="600.0">
-              <ImageView fx:id="codigoBarras" fitHeight="143.0" fitWidth="170.0" layoutX="57.0" layoutY="42.0"
-                         pickOnBounds="true" preserveRatio="true">
-                  <Image url="@images/logo.png"/>
+              <ImageView fx:id="imgCodigoBarras" fitHeight="153.0" fitWidth="169.0" layoutX="72.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@images/logo.png" />
               </ImageView>
-              <TextField fx:id="numCodigoBarras" layoutX="56.0" layoutY="252.0"/>
-              <Separator layoutX="276.0" layoutY="52.0" orientation="VERTICAL" prefHeight="200.0"/>
-              <Label layoutX="300.0" layoutY="26.0" text="Nombre"/>
-              <TextField fx:id="nomProducto" layoutX="300.0" layoutY="47.0" prefHeight="24.0" prefWidth="237.0"/>
-              <Label layoutX="300.0" layoutY="91.0" text="Precio"/>
-              <TextField fx:id="precioProducto" layoutX="300.0" layoutY="112.0" prefHeight="24.0"
-                         prefWidth="241.0"/>
-              <Label layoutX="300.0" layoutY="152.0" text="Descripcion"/>
-              <TextArea fx:id="descProducto" layoutX="300.0" layoutY="175.0" prefHeight="90.0" prefWidth="243.0"/>
-              <Label layoutX="300.0" layoutY="276.0" text="Fecha de caducidad"/>
-              <DatePicker fx:id="caducidadProducto" layoutX="302.0" layoutY="300.0" prefHeight="24.0"
-                          prefWidth="239.0"/>
-              <Button fx:id="btnGuardar" layoutX="395.0" layoutY="337.0" mnemonicParsing="false" text="Guardar"/>
-              <Button fx:id="btnValidar" layoutX="80.0" layoutY="300.0" mnemonicParsing="false" prefHeight="24.0"
-                      prefWidth="125.0" text="Validar codigo"/>
+              <TextField fx:id="numCodigoBarras" layoutX="52.0" layoutY="252.0" prefHeight="24.0" prefWidth="192.0" />
+              <Separator layoutX="276.0" layoutY="52.0" orientation="VERTICAL" prefHeight="275.0" prefWidth="0.0" />
+              <Button fx:id="btnValidar" layoutX="86.0" layoutY="297.0" mnemonicParsing="false" onAction="#validarCodigoBarras" prefHeight="24.0" prefWidth="125.0" text="Validar" />
+            <Pane fx:id="dadesProductoPane" layoutX="277.0" prefHeight="380.0" prefWidth="324.0">
+               <children>
+                    <Label layoutX="43.0" layoutY="24.0" text="Nombre" />
+                    <TextField fx:id="nomProducto" layoutX="43.0" layoutY="48.0" prefHeight="24.0" prefWidth="237.0" />
+                    <Label layoutX="40.0" layoutY="84.0" text="Precio" />
+                    <TextField fx:id="precioProducto" layoutX="41.0" layoutY="106.0" prefHeight="24.0" prefWidth="241.0" />
+                    <Label layoutX="42.0" layoutY="142.0" text="Descripcion" />
+                    <TextArea fx:id="descProducto" layoutX="40.0" layoutY="167.0" prefHeight="90.0" prefWidth="243.0" />
+                    <Label layoutX="42.0" layoutY="264.0" text="Fecha de caducidad" />
+                    <DatePicker fx:id="caducidadProducto" layoutX="42.0" layoutY="288.0" prefHeight="24.0" prefWidth="239.0" />
+                    <Button fx:id="btnGuardar" layoutX="115.0" layoutY="330.0" mnemonicParsing="false" onAction="#crearProducto" prefHeight="24.0" prefWidth="95.0" text="Guardar" />
+               </children>
+            </Pane>
+            <Label layoutX="53.0" layoutY="224.0" text="Numero codigo de barras" />
           </AnchorPane>
       </Tab>
       <Tab text="Mostrar productos">
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <TableView fx:id="tbProductos" layoutX="14.0" layoutY="44.0" prefHeight="313.0" prefWidth="570.0">
                   <columns>
-                      <TableColumn fx:id="nombre" prefWidth="121.0" text="Nombre"/>
-                      <TableColumn fx:id="precio" prefWidth="67.0" text="Precio"/>
-                      <TableColumn fx:id="descripcion" prefWidth="238.0" text="Descripcion"/>
-                      <TableColumn fx:id="fechaCaducidad" minWidth="0.0" prefWidth="143.0" resizable="false"
-                                   text="Fecha caducidad"/>
+                  <TableColumn fx:id="codigo" prefWidth="98.0" text="Codigo" />
+                      <TableColumn fx:id="nombre" prefWidth="120.0" text="Nombre" />
+                      <TableColumn fx:id="precio" prefWidth="71.0" text="Precio" />
+                      <TableColumn fx:id="descripcion" minWidth="0.0" prefWidth="151.0" text="Descripcion" />
+                      <TableColumn fx:id="fechaCaducidad" minWidth="0.0" prefWidth="129.0" text="Fecha caducidad" />
                   </columns>
               </TableView>
-              <Button layoutX="512.0" layoutY="14.0" mnemonicParsing="false" text="Eliminar"/>
+              <Button layoutX="512.0" layoutY="14.0" mnemonicParsing="false" text="Eliminar" onAction="#eliminarProducto"/>
           </AnchorPane>
       </Tab>
   </tabs>
