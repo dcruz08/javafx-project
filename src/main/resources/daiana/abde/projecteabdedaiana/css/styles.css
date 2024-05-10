@@ -1,0 +1,91 @@
+/* Reset general */
+* {
+    -fx-focus-color: #4B6EAF; /* secondary-color */
+}
+
+/* Estilos de pestañas */
+.tab-header-area .tab-header-background {
+    -fx-background-color: #04AA6D; /* primary-color */
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #4B6EAF; /* secondary-color */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.tab .tab-label {
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0 5;
+}
+
+.tab-pane:top *.tab-header-area {
+    -fx-padding: 0 0 0 20;
+}
+
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 50px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+}
+
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+}
+
+/* Estilos de botones */
+.button {
+    -fx-background-color: #04AA6D; /* primary-color */
+    -fx-border: none;
+    -fx-color: white;
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-width:20px;
+    -fx-display: inline-block;
+    -fx-font-size: 10px;
+}
+
+/* Estilos de ComboBox */
+.combo-box-base {
+    -fx-background-color: #04AA6D; /* primary-color */
+    -fx-background-radius: 0;
+}
+
+.combo-box-base:hover {
+    -fx-background-color: #4B6EAF; /* secondary-color */
+}
+
+.combo-box-base:disabled {
+    -fx-background-color: #808080; /* grey-color */
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+}
+
+.combo-box-base .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+/* Mientras se muestra */
+.combo-box-base:showing {
+    -fx-background-color: #4B6EAF; /* secondary-color */
+}
+
+.combo-box .combo-box-popup .list-view .list-cell {
+    -fx-background-color: #04AA6D; /* primary-color */
+}
+
+.combo-box .combo-box-popup .list-view .list-cell:hover,
+.combo-box .combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: #4B6EAF; /* secondary-color */
+}
