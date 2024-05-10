@@ -1,7 +1,6 @@
 package daiana.abde.projecteabdedaiana.Classes;
 
-
-import pkgFitxers.Fitxers;
+import abderrahim.ouabou.Fitxers;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -37,7 +36,6 @@ public class Producto implements Serializable {
         this.precio = precio;
         this.fechaCaducidad = fechaCaducidad;
     }
-
 
     //</editor-fold>
 
@@ -76,9 +74,36 @@ public class Producto implements Serializable {
         try {
             if (!f.existeix(dir))
                 f.creaDirectori(dir);
-            f.escriuObjecteFitxer(this, nomFitxer, true);
+            f.escriuobjecteFitxer(this, nomFitxer, true);
         } catch (Exception e) {
-            throw new Exception("No s'ha pogut guardar el producte");
+            throw new Exception("Error al guardar el producto.");
+        }
+    }
+
+    public void eliminaRegistreFitxerObjecte(String fitxer, String codigo) throws IOException {
+        List<Object> LObj = f.retornaFitxerObjecteEnLlista(fitxer);
+        boolean primerRegistre = true;
+        f.eliminarFitxerDirectori(fitxer);
+
+        for (Object o : LObj) {
+            Producto p = (Producto) o;
+            if (!p.getCodigoBarras().equals(codigo)) {
+                if (primerRegistre) {
+                    f.escriuobjecteFitxer(o, fitxer, false);
+                    primerRegistre = false;
+                } else {
+                    f.escriuobjecteFitxer(o, fitxer, true);
+                }
+            }
+        }
+
+    }
+
+    public void eliminarProducto() throws Exception {
+        try {
+            eliminaRegistreFitxerObjecte(nomFitxer, this.getCodigoBarras());
+        } catch (Exception e) {
+            throw new Exception("Error al eliminar el producto.");
         }
     }
     private static List<Producto> convertirAProductos(List <Object> lObj){
