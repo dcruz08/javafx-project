@@ -1,15 +1,15 @@
 /* Reset general */
 * {
-    -fx-focus-color: #4B6EAF; /* secondary-color */
+    -fx-focus-color: #576574; /* Focus Color */
 }
 
-/* Estilos de pestañas */
+/* Tab styles */
 .tab-header-area .tab-header-background {
-    -fx-background-color: #04AA6D; /* primary-color */
+    -fx-background-color: #2E86C1; /* Primary Color */
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: #4B6EAF; /* secondary-color */
+    -fx-background-color: #576574; /* Secondary Color */
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
@@ -42,30 +42,38 @@
     -fx-border-radius: 0;
 }
 
-/* Estilos de botones */
+/* Button styles */
+/* Button styles */
 .button {
-    -fx-background-color: #04AA6D; /* primary-color */
+    -fx-background-color: #2E86C1; /* Primary Color */
     -fx-border: none;
-    -fx-color: white;
-    -fx-text-align: center;
-    -fx-text-decoration: none;
-    -fx-width:20px;
-    -fx-display: inline-block;
-    -fx-font-size: 10px;
+    -fx-text-fill: white; /* Text Color */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 8px 15px; /* Padding */
+    -fx-background-radius: 5px; /* Border radius */
+    -fx-font-size: 14px; /* Font size */
 }
 
-/* Estilos de ComboBox */
+.button:hover {
+    -fx-background-color: #576574; /* Secondary Color */
+}
+
+.button:pressed {
+    -fx-background-color: #34495E; /* Darker shade of secondary color */
+}
+
+/* Combo box styles */
 .combo-box-base {
-    -fx-background-color: #04AA6D; /* primary-color */
+    -fx-background-color: #2E86C1; /* Primary Color */
     -fx-background-radius: 0;
 }
 
 .combo-box-base:hover {
-    -fx-background-color: #4B6EAF; /* secondary-color */
+    -fx-background-color: #576574; /* Secondary Color */
 }
 
 .combo-box-base:disabled {
-    -fx-background-color: #808080; /* grey-color */
+    -fx-background-color: #808080; /* Gray Color */
 }
 
 .combo-box .list-cell {
@@ -76,16 +84,16 @@
     -fx-background-color: white;
 }
 
-/* Mientras se muestra */
+/* While showing */
 .combo-box-base:showing {
-    -fx-background-color: #4B6EAF; /* secondary-color */
+    -fx-background-color: #576574; /* Secondary Color */
 }
 
 .combo-box .combo-box-popup .list-view .list-cell {
-    -fx-background-color: #04AA6D; /* primary-color */
+    -fx-background-color: #2E86C1; /* Primary Color */
 }
 
 .combo-box .combo-box-popup .list-view .list-cell:hover,
 .combo-box .combo-box-popup .list-view .list-cell:selected {
-    -fx-background-color: #4B6EAF; /* secondary-color */
+    -fx-background-color: #576574; /* Secondary Color */
 }
