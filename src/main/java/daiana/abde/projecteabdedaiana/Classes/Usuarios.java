@@ -19,7 +19,11 @@ public class Usuarios implements Serializable {
     private int id;
     private String NomUsuari;
     private String contrasena;
-    private boolean esAdmin;
+//    private boolean esAdmin;
+    private String Nombre;
+    private String Apellido;
+    private String TipoUsuario;
+
 
     //</editor-fold>
 
@@ -27,11 +31,14 @@ public class Usuarios implements Serializable {
     public Usuarios() {
     }
 
-    public Usuarios(String NomUsuari,String contrasena, boolean esAdmin) {
+    public Usuarios(String NomUsuari,String Nombre,String Apellido ,String contrasena, String TipoUsuario) {
         this.id=System.identityHashCode(this);
         this.NomUsuari = NomUsuari;
+        this.Nombre = Nombre;
+        this.Apellido = Apellido;
         this.contrasena = contrasena;
-        this.esAdmin = esAdmin;
+        this.TipoUsuario = TipoUsuario;
+//        this.esAdmin = esAdmin;
     }
 
 
@@ -52,13 +59,22 @@ public class Usuarios implements Serializable {
         return NomUsuari;
     }
 
+    public String getApellido() {
+        return Apellido;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
     public String getContrasena() {
         return contrasena;
     }
+    public String getTipoUsuario() {return TipoUsuario;}
 
-    public boolean isEsAdmin() {
-        return esAdmin;
-    }
+//    public boolean isEsAdmin() {
+//        return esAdmin;
+//    }
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
@@ -67,9 +83,9 @@ public class Usuarios implements Serializable {
         this.NomUsuari = NomUsuari;
     }
 
-    public void setEsAdmin(boolean esAdmin) {
-        this.esAdmin = esAdmin;
-    }
+//    public void setEsAdmin(boolean esAdmin) {
+//        this.esAdmin = esAdmin;
+//    }
 
 
 

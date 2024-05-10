@@ -19,7 +19,7 @@
       <content>
         <AnchorPane fx:id="numeroBarras" minHeight="0.0" minWidth="0.0" prefHeight="410.0" prefWidth="600.0">
                <children>
-                  <ImageView fx:id="codigoBarras" fitHeight="143.0" fitWidth="170.0" layoutX="57.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="ImagencodigoBarras" fitHeight="143.0" fitWidth="170.0" layoutX="57.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
                   <TextField fx:id="TextCodigoBarras" layoutX="56.0" layoutY="252.0" />
                   <Separator layoutX="276.0" layoutY="52.0" orientation="VERTICAL" prefHeight="200.0" />
                   <Label layoutX="300.0" layoutY="26.0" text="Nombre" />
@@ -31,6 +31,7 @@
                   <Label layoutX="300.0" layoutY="276.0" text="Fecha de caducidad" />
                   <DatePicker fx:id="fechaProducto" layoutX="302.0" layoutY="300.0" prefHeight="24.0" prefWidth="239.0" />
                   <Button fx:id="btnGuardar" layoutX="395.0" layoutY="337.0" mnemonicParsing="false" text="Guardar" />
+                  <Button fx:id="BtnEscanea" layoutX="105.0" layoutY="313.0" mnemonicParsing="false" onAction="#NumeroBarras" text="Escanea" />
                </children></AnchorPane>
       </content>
     </Tab>
