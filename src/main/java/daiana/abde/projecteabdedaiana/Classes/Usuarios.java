@@ -1,6 +1,7 @@
 package daiana.abde.projecteabdedaiana.Classes;
 
-import abderrahim.ouabou.Fitxers;
+
+import pkgFitxers.Fitxers;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -99,7 +100,7 @@ public class Usuarios implements Serializable {
         } else {
             nombreArchivo = nomFitxerUsuari;
         }
-        f.escriuobjecteFitxer(this, nombreArchivo, true);
+        f.escriuObjecteFitxer(this, nombreArchivo, true);
     }
 
 
@@ -111,7 +112,7 @@ public class Usuarios implements Serializable {
         return lUsuarios;
 
     }
-    public List<Usuarios> retornaUsuarios(String nombreArchivo) {
+    public List<Usuarios> retornaUsuarios(String nombreArchivo) throws IOException, InterruptedException, ClassNotFoundException {
         return converteixAUsuario(f.retornaFitxerObjecteEnLlista(nombreArchivo));
     }
 
