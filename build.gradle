@@ -45,7 +45,10 @@ javafx {
 dependencies {
   implementation 'vicent.Bellver:missatges_i_alertes:4.0'
   implementation 'abderrahim.ouabou:Fitxers:2.2'
+<<<<<<< HEAD
   implementation 'abderrahim.ouabou:Fitxers:2.2'
+=======
+>>>>>>> refs/remotes/origin/daiana
   implementation 'com.google.zxing:core:3.4.1'
   implementation 'com.google.zxing:core:3.4.1:javadoc'
   implementation 'com.google.zxing:javase:3.5.1'

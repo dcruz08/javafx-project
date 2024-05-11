@@ -1,6 +1,7 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
 import com.google.zxing.BarcodeFormat;
+<<<<<<< HEAD
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -21,6 +22,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import com.google.zxing.BarcodeFormat;
+=======
+>>>>>>> refs/remotes/origin/daiana
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.oned.UPCAWriter;
