@@ -45,14 +45,14 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <TableView fx:id="tbProductos" layoutX="14.0" layoutY="44.0" prefHeight="313.0" prefWidth="570.0">
                   <columns>
-                  <TableColumn fx:id="codigo" prefWidth="98.0" text="Codigo" />
-                      <TableColumn fx:id="nombre" prefWidth="120.0" text="Nombre" />
-                      <TableColumn fx:id="precio" prefWidth="71.0" text="Precio" />
-                      <TableColumn fx:id="descripcion" minWidth="0.0" prefWidth="151.0" text="Descripcion" />
-                      <TableColumn fx:id="fechaCaducidad" minWidth="0.0" prefWidth="129.0" text="Fecha caducidad" />
+                  <TableColumn fx:id="codigo" prefWidth="98.0" resizable="false" text="Codigo" />
+                      <TableColumn fx:id="nombre" prefWidth="120.0" resizable="false" text="Nombre" />
+                      <TableColumn fx:id="precio" prefWidth="81.0" resizable="false" text="Precio" />
+                      <TableColumn fx:id="descripcion" minWidth="0.0" prefWidth="138.0" resizable="false" text="Descripcion" />
+                      <TableColumn fx:id="fechaCaducidad" minWidth="0.0" prefWidth="132.0" resizable="false" text="Fecha caducidad" />
                   </columns>
               </TableView>
-              <Button layoutX="512.0" layoutY="14.0" mnemonicParsing="false" text="Eliminar" onAction="#eliminarProducto"/>
+              <Button layoutX="512.0" layoutY="14.0" mnemonicParsing="false" onAction="#eliminarProducto" text="Eliminar" />
           </AnchorPane>
       </Tab>
   </tabs>

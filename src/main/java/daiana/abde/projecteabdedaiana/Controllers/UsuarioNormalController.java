@@ -2,18 +2,11 @@ package daiana.abde.projecteabdedaiana.Controllers;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
 
-
-
-import com.google.zxing.BarcodeFormat;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import vicent.Bellver.MissatgesJavaSwing;
 
 import javax.swing.text.TableView;
 import javax.swing.text.html.ImageView;
@@ -23,10 +16,7 @@ import java.awt.event.ActionEvent;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.oned.Code39Writer;
-import com.google.zxing.oned.EAN13Writer;
 import com.google.zxing.oned.UPCAWriter;
-import com.google.zxing.pdf417.encoder.BarcodeMatrix;
 import daiana.abde.projecteabdedaiana.Classes.Producto;
 import daiana.abde.projecteabdedaiana.HelloApplication;
 import javafx.collections.FXCollections;
@@ -40,17 +30,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
-import pkgFitxers.Fitxers;
 import vicent.Bellver.MissatgesJavaSwing;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class UsuarioNormalController implements Initializable {
@@ -79,27 +68,30 @@ public class UsuarioNormalController implements Initializable {
     @FXML
     private TableColumn<Producto, String> descripcion;
     @FXML
-    private TableColumn<Producto, Date> fechaCaducidad;
+    private TableColumn<Producto, LocalDate> fechaCaducidad;
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
     public void eliminarProducto() {
         Producto productoSeleccionado = tbProductos.getSelectionModel().getSelectedItem();
 
         if(ms.pregunta("¿Seguro que quieres borrar este producto?") == 0) {
-            tbProductos.getItems().remove(productoSeleccionado);
-            ms.missatgeInfo("Se ha borrado el producto.");
+            try {
+                productoSeleccionado.eliminarProducto();
+                tbProductos.getItems().remove(productoSeleccionado);
+                ms.missatgeInfo("Se ha borrado el producto.");
+            } catch (Exception e) {
+               ms.missatgeError("Error al borrar el producto. Intente de nuevo.");
+            }
         }
     }
 
-
     public void rellenarTablaProductos() {
-        tbProductos.setEditable(true);
+        tbProductos.setEditable(false);
         try {
             List<Producto> productos = Producto.listarProductos();
             System.out.println(productos);
 
             ObservableList<Producto> lProductos = FXCollections.observableList(productos);
-
             codigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarras"));
             nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
@@ -130,12 +122,16 @@ public class UsuarioNormalController implements Initializable {
         }
 
         Producto p = new Producto(codigo,nom,desc,precio,fechaCaducidad);
+
         try {
             p.guardarProducto();
             ms.missatgeInfo("Se ha guardado el producto.");
+            resetearFormularioProducto();
+            rellenarTablaProductos();
         } catch (Exception e) {
             ms.missatgeError("No se podido guardar el producto.");
         }
+
     }
 
     private Image convertirAImage(BufferedImage bufferedImage) {
@@ -152,7 +148,7 @@ public class UsuarioNormalController implements Initializable {
     public void generarCodigoBarras() {
         String codigoBarras = numCodigoBarras.getText();
         UPCAWriter upcAWriter = new UPCAWriter();
-        BitMatrix bitmap = upcAWriter.encode(codigoBarras, BarcodeFormat.UPC_A, 100, 100);
+        BitMatrix bitmap = upcAWriter.encode(codigoBarras, BarcodeFormat.UPC_A, 80, 100);
         Image imgCodigo = convertirAImage(MatrixToImageWriter.toBufferedImage(bitmap));
         imgCodigoBarras.setImage(imgCodigo);
     }
@@ -168,12 +164,21 @@ public class UsuarioNormalController implements Initializable {
     }
 
     public void resetearFormularioProducto() {
-        //HelloApplication.class.getResource("images/codigobarras.png")
-        imgCodigoBarras.setImage(null);
+        Image img = null;
+        try {
+            img = new Image(HelloApplication.class.getResource("images/logo.png").toURI().toURL().toExternalForm());
+        } catch (Exception e) {
+            System.out.println("Error al cargar la imagen del logo.");
+        }
+
+        imgCodigoBarras.setImage(img);
+        numCodigoBarras.setText("");
+
         nomProducto.setText("");
         descProducto.setText("");
         precioProducto.setText("");
         caducidadProducto.setValue(null);
+        dadesProductoPane.setDisable(true);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
