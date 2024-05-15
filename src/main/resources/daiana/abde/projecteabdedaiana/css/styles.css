@@ -43,37 +43,37 @@
 }
 
 /* Button styles */
-/* Button styles */
+
 .button {
-    -fx-background-color: #2E86C1; /* Primary Color */
+    -fx-background-color: #2E86C1;
     -fx-border: none;
-    -fx-text-fill: white; /* Text Color */
-    -fx-font-weight: bold; /* Bold text */
-    -fx-padding: 8px 15px; /* Padding */
-    -fx-background-radius: 5px; /* Border radius */
-    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
 }
 
 .button:hover {
-    -fx-background-color: #576574; /* Secondary Color */
+    -fx-background-color: #576574;
 }
 
 .button:pressed {
-    -fx-background-color: #34495E; /* Darker shade of secondary color */
+    -fx-background-color: #34495E;
 }
 
 /* Combo box styles */
 .combo-box-base {
-    -fx-background-color: #2E86C1; /* Primary Color */
+    -fx-background-color: #2E86C1;
     -fx-background-radius: 0;
 }
 
 .combo-box-base:hover {
-    -fx-background-color: #576574; /* Secondary Color */
+    -fx-background-color: #576574;
 }
 
 .combo-box-base:disabled {
-    -fx-background-color: #808080; /* Gray Color */
+    -fx-background-color: #808080;
 }
 
 .combo-box .list-cell {
@@ -86,23 +86,25 @@
 
 /* While showing */
 .combo-box-base:showing {
-    -fx-background-color: #576574; /* Secondary Color */
+    -fx-background-color: #576574;
 }
 
 .combo-box .combo-box-popup .list-view .list-cell {
-    -fx-background-color: #2E86C1; /* Primary Color */
+    -fx-background-color: #2E86C1;
 }
 
 .combo-box .combo-box-popup .list-view .list-cell:hover,
 .combo-box .combo-box-popup .list-view .list-cell:selected {
-    -fx-background-color: #576574; /* Secondary Color */
+    -fx-background-color: #576574;
 }
+/* Text field styles */
 .text-field {
     -fx-border-color: grey;
-    -fx-border-width: 0 0 1 0; // top, right, bottom, left
+    -fx-border-width: 0 0 1 0;
 -fx-background-color: transparent;
 }
 
+/* TableView styles */
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-background-color: #0c2b96;
@@ -118,7 +120,6 @@
     -fx-background-color: #68a8da;
     -fx-border-color: #68a8da;
     -fx-text-fill: #1e1c1c;
-
 
 }
 .table-row-cell:selected {
