@@ -97,3 +97,32 @@
 .combo-box .combo-box-popup .list-view .list-cell:selected {
     -fx-background-color: #576574; /* Secondary Color */
 }
+.text-field {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0; // top, right, bottom, left
+-fx-background-color: transparent;
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color:  #6622CC;
+}
+.table-view .column-header .label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+.table-view .cell{
+    -fx-cell-size: 35;
+
+    -fx-background-color: #29292D;
+    -fx-border-color: #29292D;
+    -fx-text-fill: lightgray;
+
+
+}
+.table-row-cell:selected {
+    -fx-background-color: whitesmoke;
+    -fx-text-background-color: #6622CC;
+
+}
