@@ -31,7 +31,7 @@ public class Usuarios implements Serializable {
     public Usuarios() {
     }
 
-    public Usuarios(String NomUsuari,String Nombre,String Apellido ,String contrasena, String TipoUsuario) {
+    public Usuarios(String NomUsuari, String Nombre, String Apellido , String contrasena, String TipoUsuario) {
         this.id=System.identityHashCode(this);
         this.NomUsuari = NomUsuari;
         this.Nombre = Nombre;
