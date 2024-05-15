@@ -105,7 +105,7 @@
 
 .table-view .column-header,
 .table-view .column-header-background .filler {
-    -fx-background-color:  #6622CC;
+    -fx-background-color: #0c2b96;
 }
 .table-view .column-header .label{
     -fx-text-fill: white;
@@ -115,8 +115,8 @@
 .table-view .cell{
     -fx-cell-size: 35;
 
-    -fx-background-color: #8181e5;
-    -fx-border-color: #8181e5;
+    -fx-background-color: #68a8da;
+    -fx-border-color: #68a8da;
     -fx-text-fill: #1e1c1c;
 
 
