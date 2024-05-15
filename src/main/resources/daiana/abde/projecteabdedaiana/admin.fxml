@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/styles.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="daiana.abde.projecteabdedaiana.Controllers.AdminController">
     <tabs>
@@ -17,16 +18,19 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
                         <TextField fx:id="UsuarioField" layoutX="63.0" layoutY="175.0" />
-                        <Label layoutX="63.0" layoutY="148.0" text="Usuario" />
-                        <Label layoutX="300.0" layoutY="157.0" text="Contraseña" />
+                        <Label layoutX="63.0" layoutY="147.0" text="Usuario" />
+                        <Label layoutX="300.0" layoutY="147.0" text="Contraseña">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font></Label>
                         <TextField fx:id="ContrasenaField" layoutX="300.0" layoutY="175.0" />
-                        <Label layoutX="56.0" layoutY="212.0" text="Tipo de usuario" />
+                        <Label layoutX="60.0" layoutY="218.0" text="Tipo de usuario" />
                         <Button fx:id="BtnCrear" layoutX="60.0" layoutY="287.0" mnemonicParsing="false" onAction="#altaUsuario" text="Crear" />
                         <Label layoutX="61.0" layoutY="73.0" text="Nombre" />
                         <Label layoutX="300.0" layoutY="73.0" text="Apellido" />
                         <TextField fx:id="NombreField" layoutX="64.0" layoutY="99.0" />
                         <TextField fx:id="ApellidoField" layoutX="300.0" layoutY="99.0" />
-                  <ComboBox fx:id="tipoUsuarioChoiceBox" layoutX="62.0" layoutY="230.0" prefWidth="150.0" promptText="Tipo de Usuario" />
+                  <ComboBox fx:id="tipoUsuarioChoiceBox" layoutX="63.0" layoutY="238.0" prefWidth="150.0" promptText="Tipo de Usuario" />
                     </children>
                 </AnchorPane>
             </content>
@@ -35,17 +39,17 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView fx:id="TableMostrarUsuarios" layoutX="58.0" layoutY="49.0" prefHeight="250.0" prefWidth="446.0">
+                        <TableView fx:id="TableMostrarUsuarios" layoutX="56.0" layoutY="53.0" prefHeight="290.0" prefWidth="475.0">
                             <columns>
                                 <TableColumn fx:id="ColumnaUsuario" prefWidth="75.0" text="Usuario " />
                                 <TableColumn fx:id="ColumnaContrasena" prefWidth="75.0" text="Contraseña" />
                                 <TableColumn fx:id="ColumnaNombre" prefWidth="97.5999755859375" text="Nombre" />
                                 <TableColumn fx:id="ColumnaApellido" prefWidth="97.5999755859375" text="Apellido" />
-                                <TableColumn fx:id="ColumnaTipoUsuario" prefWidth="97.5999755859375" text="Tipo de Usuario" />
+                                <TableColumn fx:id="ColumnaTipoUsuario" prefWidth="99.99997558593748" text="Tipo de Usuario" />
                             </columns>
                         </TableView>
-                        <Button id="button" fx:id="BtnMostrar" layoutX="337.0" layoutY="15.0" mnemonicParsing="false" onAction="#mostrarUsuarios" text="Mostrar" />
-                  <ComboBox fx:id="tipoUsuarioChoiceBox2" layoutX="149.0" layoutY="15.0" prefWidth="150.0" promptText="Tipo de Usuario" />
+                        <Button id="button" fx:id="BtnMostrar" layoutX="319.0" layoutY="10.0" mnemonicParsing="false" onAction="#mostrarUsuarios" prefHeight="26.0" prefWidth="99.0" text="Mostrar" />
+                  <ComboBox fx:id="tipoUsuarioChoiceBox2" layoutX="110.0" layoutY="10.0" prefHeight="34.0" prefWidth="184.0" promptText="Tipo de Usuario" />
                     </children>
                 </AnchorPane>
             </content>

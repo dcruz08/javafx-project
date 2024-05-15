@@ -95,12 +95,19 @@ public class AdminController {
 
     @FXML
     private Usuarios CrearUsuario() {
-        String usuario = UsuarioField.getText();
-        String contrasena = ContrasenaField.getText();
-        String nombre = NombreField.getText();
-        String apellido = ApellidoField.getText();
+        // Obtener los valores de los campos
+        String usuario = UsuarioField.getText().trim();
+        String contrasena = ContrasenaField.getText().trim();
+        String nombre = NombreField.getText().trim();
+        String apellido = ApellidoField.getText().trim();
         String tipoUsuario = tipoUsuarioChoiceBox.getValue();
-//        boolean admin = esAdmin();
+
+        // Verificar si algún campo está vacío
+        if (usuario.isEmpty() || contrasena.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || tipoUsuario == null) {
+            ms.missatgeError("¡Todos los campos son obligatorios!");
+            return null;
+
+        }
 
         return new Usuarios(usuario, nombre, apellido, contrasena, tipoUsuario);
     }
@@ -108,13 +115,14 @@ public class AdminController {
     @FXML
     private void altaUsuario(ActionEvent event) {
         Usuarios usuario = CrearUsuario();
-        try {
-            usuario.guardarUsuario(esAdmin()); // Guardar el usuario en el archivo correspondiente
-            ms.missatgeInfo("Usuario guardado correctamente");
 
-
-        } catch (Exception e) {
-            ms.missatgeError("Error al guardar el usuario");
+        if (usuario != null) {
+            try {
+                usuario.guardarUsuario(esAdmin());
+                ms.missatgeInfo("Usuario guardado correctamente");
+            } catch (Exception e) {
+                ms.missatgeError("Error al guardar el usuario");
+            }
         }
     }
 
