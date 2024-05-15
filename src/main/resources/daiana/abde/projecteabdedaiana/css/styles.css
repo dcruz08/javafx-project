@@ -115,9 +115,9 @@
 .table-view .cell{
     -fx-cell-size: 35;
 
-    -fx-background-color: #29292D;
-    -fx-border-color: #29292D;
-    -fx-text-fill: lightgray;
+    -fx-background-color: #8181e5;
+    -fx-border-color: #8181e5;
+    -fx-text-fill: #1e1c1c;
 
 
 }
