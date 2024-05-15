@@ -25,6 +25,7 @@ public class Usuarios implements Serializable {
     private String TipoUsuario;
 
 
+
     //</editor-fold>
 
     //<editor-fold desc="Construct">
