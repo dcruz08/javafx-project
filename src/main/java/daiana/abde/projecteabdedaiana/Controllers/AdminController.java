@@ -1,181 +1,128 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
-import daiana.abde.projecteabdedaiana.Classes.Usuarios;
+import daiana.abde.projecteabdedaiana.Classes.TipoUsuario;
+import daiana.abde.projecteabdedaiana.Classes.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import vicent.Bellver.MissatgesJavaSwing;
 
 import java.util.List;
-
+import java.util.Locale;
 
 public class AdminController {
-    static Usuarios User = new Usuarios();
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
-
-    static final String nomFitxerAdmin = Usuarios.nomFitxerAdmin;
-    static final String nomFitxerUsuari = Usuarios.nomFitxerUsuari;
-    static List<Usuarios> llistaUsuarios = User.retornaUsuarios(nomFitxerAdmin);
-
-
+    static final String nomFitxerAdmin = TipoUsuario.ADMINISTRADOR.getNomArchivo();
+    static final String nomFitxerUsuari = TipoUsuario.USUARIO_NORMAL.getNomArchivo();
     @FXML
-    public TableView<Usuarios> TableMostrarUsuarios;
-
-
+    public TableView<Usuario> tbUsuarios;
     @FXML
-    public Button BtnMostrar;
-
+    public TableColumn<Usuario, TipoUsuario> ColumnaTipoUsuario;
     @FXML
-    public TableColumn<Usuarios, String> ColumnaTipoUsuario;
-
+    public TableColumn<Usuario, String> ColumnaApellido;
     @FXML
-    public TableColumn<Usuarios, String> ColumnaApellido;
-
+    public TableColumn<Usuario, String> ColumnaNombre;
     @FXML
-    public TableColumn<Usuarios, String> ColumnaNombre;
-
+    public TableColumn<Usuario, String> ColumnaContrasena;
     @FXML
-    public TableColumn<Usuarios, String> ColumnaContrasena;
-
+    public TableColumn<Usuario, String> ColumnaUsuario;
     @FXML
-    public TableColumn<Usuarios, String> ColumnaUsuario;
-
-    public ComboBox<String> tipoUsuarioChoiceBox;
-    private final String[] tipoUsuarioChoice = {"Administrador", "Normal"};
+    public ComboBox<String> cboTipoUsuari;
     @FXML
-    public ComboBox<String> tipoUsuarioChoiceBox2;
-    public Button BtnEliminarUsuario;
-
+    public ComboBox<String> cboTipoUsuari2;
     @FXML
     private TextField ApellidoField;
-
     @FXML
     private TextField NombreField;
-
     @FXML
     private TextField UsuarioField;
-
     @FXML
     private TextField ContrasenaField;
-
-    @FXML
-    private Button BtnCrear;
-
-
-    @FXML
-    private RadioButton RBtnUsuarioNormal;
+    // private final String[] tipoUsuarioChoice = {"Administrador", "Normal"};
 
     @FXML
     public void initialize() {
-        tipoUsuarioChoiceBox.getItems().addAll(tipoUsuarioChoice);
-
-        tipoUsuarioChoiceBox2.getItems().addAll(tipoUsuarioChoice);
-
-        mostrarUsuariosInicio();
-
-
+        for (TipoUsuario tipo : TipoUsuario.values()) {
+            cboTipoUsuari.getItems().add(tipo.getValue());
+            cboTipoUsuari2.getItems().add(tipo.getValue());
+        }
+        cboTipoUsuari.getSelectionModel().select(0);
+        cboTipoUsuari2.getSelectionModel().select(0);
+        listarUsuarios();
     }
 
-    public String UsuarioSeleccionado() {
-//        RadioButton selectedRadioButton = (RadioButton) TipoDeUsuario.getSelectedToggle();
 
-        String usuario = tipoUsuarioChoiceBox2.getValue();
-        System.out.println(usuario);
+    public String tipoUsuarioSeleccionado() {
+        String usuario = cboTipoUsuari2.getValue();
         if (usuario.equals("Administrador")) {
-            return Usuarios.nomFitxerAdmin;
-        } else if (usuario.equals("Normal")) {
-            return Usuarios.nomFitxerUsuari;
-        } else {
-            return Usuarios.nomFitxerUsuari; // Otra lógica si no se selecciona ni Administrador ni Usuario
+            return nomFitxerAdmin;
         }
+
+        return nomFitxerUsuari;
     }
+    private Usuario crearUsuario() {
+        String usuario = UsuarioField.getText();
+        String contrasena = ContrasenaField.getText();
+        String nombre = NombreField.getText();
+        String apellido = ApellidoField.getText();
+        TipoUsuario tipoUsuario = TipoUsuario.valueOf(cboTipoUsuari.getValue().toUpperCase());
 
-    @FXML
-    private Usuarios CrearUsuario() {
-        // Obtener los valores de los campos
-        String usuario = UsuarioField.getText().trim();
-        String contrasena = ContrasenaField.getText().trim();
-        String nombre = NombreField.getText().trim();
-        String apellido = ApellidoField.getText().trim();
-        String tipoUsuario = tipoUsuarioChoiceBox.getValue();
-
-        // Verificar si algún campo está vacío
         if (usuario.isEmpty() || contrasena.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || tipoUsuario == null) {
-            ms.missatgeError("¡Todos los campos son obligatorios!");
+            ms.missatgeError("Rellene todos los campos.");
             return null;
-
         }
 
-        return new Usuarios(usuario, nombre, apellido, contrasena, tipoUsuario);
+        return new Usuario(usuario, nombre, apellido, contrasena, tipoUsuario);
     }
 
-    @FXML
-    private void altaUsuario(ActionEvent event) {
-        Usuarios usuario = CrearUsuario();
+    public void guardarUsuario() {
+        Usuario usuario = crearUsuario();
 
-        if (usuario != null) {
-            try {
-                usuario.guardarUsuario(esAdmin());
-                ms.missatgeInfo("Usuario guardado correctamente");
-            } catch (Exception e) {
-                ms.missatgeError("Error al guardar el usuario");
-            }
+        if(usuario == null) return;
+
+        try {
+            usuario.guardarUsuario();
+            ms.missatgeInfo("El usuario se ha guardado correctamente.");
+        } catch (Exception e) {
+            ms.missatgeError("Error al guardar el usuario.");
         }
     }
 
     public boolean esAdmin() {
-
-        if (tipoUsuarioChoiceBox.getValue().equals("Administrador")) {
+        if (cboTipoUsuari.getValue().equals("Administrador")) {
             return true;
 
         }
         return false;
     }
 
-    @FXML
-    public void mostrarUsuarios() {
+    public void filtrarPorTipoUsuario() {
         try {
-
-
-            ObservableList<Usuarios> usuarios = FXCollections.observableArrayList(User.retornaUsuarios(UsuarioSeleccionado()));
-
-            ColumnaUsuario.setCellValueFactory(new PropertyValueFactory<>("NomUsuari"));
-            ColumnaContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
-            ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-            ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
-            ColumnaTipoUsuario.setCellValueFactory(new PropertyValueFactory<>("TipoUsuario"));
-
-            TableMostrarUsuarios.setItems(usuarios);
+            rellenarTabla(Usuario.retornaUsuario(tipoUsuarioSeleccionado()));
         } catch (Exception e) {
             ms.missatgeError("Seleccione un usuario");
         }
     }
 
-    public void mostrarUsuariosInicio(){
-
-        // Obtener la lista de usuarios del archivo correspondiente
-        List<Usuarios> listaUsuariosAdmin = User.retornaUsuarios(Usuarios.nomFitxerAdmin);
-        List<Usuarios> listaUsuariosUsuario = User.retornaUsuarios(Usuarios.nomFitxerUsuari);
-
-        // Combinar las listas
-        listaUsuariosAdmin.addAll(listaUsuariosUsuario);
-
-        // Crear una ObservableList con la lista combinada
-        ObservableList<Usuarios> usuarios = FXCollections.observableArrayList(listaUsuariosAdmin);
-
-        // Configurar las celdas de la tabla
-        ColumnaUsuario.setCellValueFactory(new PropertyValueFactory<>("NomUsuari"));
-        ColumnaContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
-        ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-        ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
-        ColumnaTipoUsuario.setCellValueFactory(new PropertyValueFactory<>("TipoUsuario"));
-
-        // Establecer los datos en la tabla
-        TableMostrarUsuarios.setItems(usuarios);
+    public void listarUsuarios(){
+        List<Usuario> listaAdmins = Usuario.retornaUsuario(nomFitxerAdmin);
+        List<Usuario> listaUsuariosNormales = Usuario.retornaUsuario(nomFitxerUsuari);
+        listaAdmins.addAll(listaUsuariosNormales);
+        rellenarTabla(listaAdmins);
     }
 
+    public void rellenarTabla(List<Usuario> usuarios) {
+        ObservableList<Usuario> Usuario = FXCollections.observableArrayList(usuarios);
+
+        ColumnaUsuario.setCellValueFactory(new PropertyValueFactory<>("nomUsuari"));
+        ColumnaContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
+        ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+        ColumnaTipoUsuario.setCellValueFactory(new PropertyValueFactory<>("tipoUsuario"));
+
+        tbUsuarios.setItems(Usuario);
+    }
 
 }
