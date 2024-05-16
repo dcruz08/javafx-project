@@ -93,9 +93,11 @@
     -fx-background-color: #2E86C1;
 }
 
-.combo-box .combo-box-popup .list-view .list-cell:hover,
+.combo-box .combo-box-popup .list-view .list-cell:hover{
+    -fx-background-color: #36449f;
+}
 .combo-box .combo-box-popup .list-view .list-cell:selected {
-    -fx-background-color: #576574;
+    -fx-background-color: #c42260;
 }
 /* Text field styles */
 .text-field {
