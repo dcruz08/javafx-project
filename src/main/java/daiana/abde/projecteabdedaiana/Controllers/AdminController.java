@@ -1,6 +1,6 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
-import daiana.abde.projecteabdedaiana.Classes.Usuarios;
+import daiana.abde.projecteabdedaiana.Classes.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,35 +20,18 @@ public class AdminController {
      * El Usuario.
      * Una instancia de la clase Usuarios.
      */
-    static Usuarios User = new Usuarios();
-    /**
-     * Los mensajes.
-     * Una instancia de MissatgesJavaSwing para mostrar mensajes.
-     */
+    static Usuario User = new Usuario();
+
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
     /**
      * El nombre del archivo de admin.
      * El nombre del archivo para almacenar datos de usuarios administradores.
      */
-    static final String nomFitxerAdmin = Usuarios.nomFitxerAdmin;
-    /**
-     * El nombre del archivo de usuario.
-     * El nombre del archivo para almacenar datos de usuarios normales.
-     */
-    static final String nomFitxerUsuari = Usuarios.nomFitxerUsuari;
-    /**
-     * La lista de usuarios.
-     * Una lista de instancias de Usuarios.
-     */
-    static List<Usuarios> llistaUsuarios = User.retornaUsuarios(nomFitxerAdmin);
+    static final String nomFitxerAdmin = Usuario.nomFitxerAdmin;
 
-    /**
-     * La tabla para mostrar usuarios.
-     * TableView para mostrar usuarios.
-     */
     @FXML
-    public TableView<Usuarios> TableMostrarUsuarios;
+    public TableView<Usuario> TableMostrarUsuarios;
 
     /**
      * El botón para mostrar usuarios.
@@ -62,19 +45,19 @@ public class AdminController {
      * TableColumn para mostrar los tipos de usuario.
      */
     @FXML
-    public TableColumn<Usuarios, String> ColumnaTipoUsuario;
+    public TableColumn<Usuario, String> ColumnaTipoUsuario;
 
     @FXML
-    public TableColumn<Usuarios, String> ColumnaApellido;
+    public TableColumn<Usuario, String> ColumnaApellido;
 
     @FXML
-    public TableColumn<Usuarios, String> ColumnaNombre;
+    public TableColumn<Usuario, String> ColumnaNombre;
 
     @FXML
-    public TableColumn<Usuarios, String> ColumnaContrasena;
+    public TableColumn<Usuario, String> ColumnaContrasena;
 
     @FXML
-    public TableColumn<Usuarios, String> ColumnaUsuario;
+    public TableColumn<Usuario, String> ColumnaUsuario;
 
     /**
      * El cuadro de selección de tipo de usuario.
@@ -142,11 +125,11 @@ public class AdminController {
         String usuario = tipoUsuarioChoiceBox2.getValue();
         System.out.println(usuario);
         if (usuario.equals("Administrador")) {
-            return Usuarios.nomFitxerAdmin;
+            return Usuario.nomFitxerAdmin;
         } else if (usuario.equals("Normal")) {
-            return Usuarios.nomFitxerUsuari;
+            return Usuario.nomFitxerUsuari;
         } else {
-            return Usuarios.nomFitxerUsuari;
+            return Usuario.nomFitxerUsuari;
         }
     }
 
@@ -157,7 +140,7 @@ public class AdminController {
      * @return la nueva instancia de Usuarios o null si algún campo está vacío.
      */
     @FXML
-    private Usuarios CrearUsuario() {
+    private Usuario CrearUsuario() {
         // Obtener los valores de los campos
         String usuario = UsuarioField.getText().trim();
         String contrasena = ContrasenaField.getText().trim();
@@ -171,7 +154,7 @@ public class AdminController {
             return null;
         }
 
-        return new Usuarios(usuario, nombre, apellido, contrasena, tipoUsuario);
+        return new Usuario(usuario, nombre, apellido, contrasena, tipoUsuario);
     }
 
     /**
@@ -182,7 +165,7 @@ public class AdminController {
      */
     @FXML
     private void altaUsuario(ActionEvent event) {
-        Usuarios usuario = CrearUsuario();
+        Usuario usuario = CrearUsuario();
 
         if (usuario != null) {
             try {
@@ -214,9 +197,9 @@ public class AdminController {
     @FXML
     public void mostrarUsuarios() {
         try {
-            ObservableList<Usuarios> usuarios = FXCollections.observableArrayList(User.retornaUsuarios(UsuarioSeleccionado()));
-            configurarColumnasTabla();
+            ObservableList<Usuario> usuarios = FXCollections.observableArrayList(User.retornaUsuarios(UsuarioSeleccionado()));
 
+            configurarColumnasTabla();
 
             TableMostrarUsuarios.setItems(usuarios);
         } catch (Exception e) {
@@ -230,18 +213,17 @@ public class AdminController {
      */
     public void mostrarUsuariosInicio() {
         // Obtener la lista de usuarios del archivo correspondiente
-        List<Usuarios> listaUsuariosAdmin = User.retornaUsuarios(Usuarios.nomFitxerAdmin);
-        List<Usuarios> listaUsuariosUsuario = User.retornaUsuarios(Usuarios.nomFitxerUsuari);
+        List<Usuario> listaUsuarioAdmin = User.retornaUsuarios(Usuario.nomFitxerAdmin);
+        List<Usuario> listaUsuarioUsuario = User.retornaUsuarios(Usuario.nomFitxerUsuari);
 
         // Combinar las listas
-        listaUsuariosAdmin.addAll(listaUsuariosUsuario);
+        listaUsuarioAdmin.addAll(listaUsuarioUsuario);
 
         // Crear una ObservableList con la lista combinada
-        ObservableList<Usuarios> usuarios = FXCollections.observableArrayList(listaUsuariosAdmin);
+        ObservableList<Usuario> usuarios = FXCollections.observableArrayList(listaUsuarioAdmin);
 
         // Configurar las celdas de la tabla
         configurarColumnasTabla();
-
 
         // Establecer los datos en la tabla
         TableMostrarUsuarios.setItems(usuarios);

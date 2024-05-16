@@ -1,6 +1,6 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
-import daiana.abde.projecteabdedaiana.Classes.Usuarios;
+import daiana.abde.projecteabdedaiana.Classes.Usuario;
 import daiana.abde.projecteabdedaiana.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +15,13 @@ import vicent.Bellver.MissatgesJavaSwing;
 import java.io.IOException;
 import java.util.List;
 
-import static daiana.abde.projecteabdedaiana.Classes.Usuarios.nomFitxerAdmin;
-import static daiana.abde.projecteabdedaiana.Classes.Usuarios.nomFitxerUsuari;
+import static daiana.abde.projecteabdedaiana.Classes.Usuario.nomFitxerAdmin;
+import static daiana.abde.projecteabdedaiana.Classes.Usuario.nomFitxerUsuari;
 
 
 public class LoginController {
-    private Usuarios usuarios;
-    static Usuarios User = new Usuarios();
+    private Usuario usuario;
+    static Usuario User = new Usuario();
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
 
@@ -70,16 +70,16 @@ public class LoginController {
 
     private String existeixUsuario(String nom, String contrasena) {
         // Buscar en el archivo de administradores
-        List<Usuarios> admins = User.retornaUsuarios(nomFitxerAdmin);
-        for (Usuarios admin : admins) {
+        List<Usuario> admins = User.retornaUsuarios(nomFitxerAdmin);
+        for (Usuario admin : admins) {
             if (admin.getNomUsuari().equals(nom) && admin.getContrasena().equals(contrasena)) {
                 return "UsuarioAdministrador"; // Si se encuentra como administrador
             }
         }
 
         // Buscar en el archivo de usuarios normales
-        List<Usuarios> usuarios = User.retornaUsuarios(nomFitxerUsuari);
-        for (Usuarios usuario : usuarios) {
+        List<Usuario> usuarios = User.retornaUsuarios(nomFitxerUsuari);
+        for (Usuario usuario : usuarios) {
             if (usuario.getNomUsuari().equals(nom) && usuario.getContrasena().equals(contrasena)) {
                 return "UsuarioNormal"; // Si se encuentra como usuario normal
             }

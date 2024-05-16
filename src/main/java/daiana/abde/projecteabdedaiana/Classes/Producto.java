@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Productos implements Serializable {
+public class Producto implements Serializable {
 
     static final String dir = ".dat";
     static final String nomFitxer = dir + "/productos.dat";
@@ -25,12 +25,12 @@ public class Productos implements Serializable {
 
     //<editor-fold desc="Constructor">
 
-    public Productos() {
+    public Producto() {
 
     }
 
 
-    public Productos(String nombreProducto, String descripcion, double precio, String fechaCaducidad,int codBarra) {
+    public Producto(String nombreProducto, String descripcion, double precio, String fechaCaducidad, int codBarra) {
         this.id = System.identityHashCode(this);
         NombreProducto = nombreProducto;
         Descripcion = descripcion;
@@ -85,15 +85,15 @@ public class Productos implements Serializable {
         }
 
     }
-    private static List<Productos> converteixAProducte(List <Object> lObj){
-        List<Productos> productos=new ArrayList<>();
+    private static List<Producto> converteixAProducte(List <Object> lObj){
+        List<Producto> productos=new ArrayList<>();
         for (Object o: lObj){
-            productos.add((Productos) o);
+            productos.add((Producto) o);
         }
         return productos;
 
     }
-    public List<Productos> retornaProductos() {
+    public List<Producto> retornaProductos() {
         return converteixAProducte(f.retornaFitxerObjecteEnLlista(getNomFitxer()));
     }
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Usuarios implements Serializable {
+public class Usuario implements Serializable {
 
     static final private String nomDir=".dat";
     public static final String nomFitxerUsuari=nomDir+"/usuaris.dat";
@@ -29,10 +29,10 @@ public class Usuarios implements Serializable {
     //</editor-fold>
 
     //<editor-fold desc="Construct">
-    public Usuarios() {
+    public Usuario() {
     }
 
-    public Usuarios(String NomUsuari, String Nombre, String Apellido , String contrasena, String TipoUsuario) {
+    public Usuario(String NomUsuari, String Nombre, String Apellido , String contrasena, String TipoUsuario) {
         this.id=System.identityHashCode(this);
         this.NomUsuari = NomUsuari;
         this.Nombre = Nombre;
@@ -120,15 +120,15 @@ public class Usuarios implements Serializable {
     }
 
 
-    public  List<Usuarios> converteixAUsuario(List<Object> contingut){
-        List<Usuarios> lUsuarios=new ArrayList<>();
+    public  List<Usuario> converteixAUsuario(List<Object> contingut){
+        List<Usuario> lUsuarios=new ArrayList<>();
         for (Object o: contingut){
-            lUsuarios.add((Usuarios) o);
+            lUsuarios.add((Usuario) o);
         }
         return lUsuarios;
 
     }
-    public List<Usuarios> retornaUsuarios(String nombreArchivo) {
+    public List<Usuario> retornaUsuarios(String nombreArchivo) {
         return converteixAUsuario(f.retornaFitxerObjecteEnLlista(nombreArchivo));
     }
 
