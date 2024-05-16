@@ -1,12 +1,12 @@
 package daiana.abde.projecteabdedaiana.Controllers;
 
-import daiana.abde.projecteabdedaiana.Classes.Usuarios;
+import daiana.abde.projecteabdedaiana.Classes.TipoUsuario;
+import daiana.abde.projecteabdedaiana.Classes.Usuario;
 import daiana.abde.projecteabdedaiana.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,101 +15,71 @@ import vicent.Bellver.MissatgesJavaSwing;
 import java.io.IOException;
 import java.util.List;
 
-import static daiana.abde.projecteabdedaiana.Classes.Usuarios.nomFitxerAdmin;
-import static daiana.abde.projecteabdedaiana.Classes.Usuarios.nomFitxerUsuari;
-
 
 public class LoginController {
-    private Usuarios usuarios;
-    static Usuarios User = new Usuarios();
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
-
-    @FXML
-    private Button BtnLogin;
     @FXML
     private TextField UserLogin;
     @FXML
     private PasswordField PassLogin;
-
-
-
-
-    // Método para manejar el evento de inicio de sesión
     @FXML
     private void iniciarSesion() throws IOException {
-
-        boolean esAdmin = buscarUsuario(); // Lógica de autenticación simulada
-        Stage newStage = new Stage(); // Inicializar el stage para la nueva ventana
-
-        if (esAdmin) {
-            // Cargar y mostrar la interfaz de administrador
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin.fxml"));
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            newStage.setTitle("Interfaz de Administrador");
-            newStage.setScene(scene);
-            newStage.show();
-            System.out.println("Usuario administrador");
-        } else {
-            // Cargar y mostrar la interfaz de usuario normal
-
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("usuario-normal.fxml"));
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            newStage.setTitle("Interfaz de Usario");
-            newStage.setScene(scene);
-            newStage.show();
-            System.out.println("Usuario normal");
-
-        }
-
-        // Cerrar la ventana de inicio de sesión
-
-    }
-
-    private String existeixUsuario(String nom, String contrasena) {
-        // Buscar en el archivo de administradores
-        List<Usuarios> admins = User.retornaUsuarios(nomFitxerAdmin);
-        for (Usuarios admin : admins) {
-            if (admin.getNomUsuari().equals(nom) && admin.getContrasena().equals(contrasena)) {
-                return "UsuarioAdministrador"; // Si se encuentra como administrador
-            }
-        }
-
-        // Buscar en el archivo de usuarios normales
-        List<Usuarios> usuarios = User.retornaUsuarios(nomFitxerUsuari);
-        for (Usuarios usuario : usuarios) {
-            if (usuario.getNomUsuari().equals(nom) && usuario.getContrasena().equals(contrasena)) {
-                return "UsuarioNormal"; // Si se encuentra como usuario normal
-            }
-        }
-
-        // Si no se encuentra en ninguno de los archivos, devolver un mensaje de error
-        return "Usuario no encontrado";
-    }
-
-    private Boolean buscarUsuario() {
         String nombreUsuario = UserLogin.getText();
         String contrasena = PassLogin.getText();
 
-        // Verificar si es administrador o usuario normal
-        String resultado = existeixUsuario(nombreUsuario, contrasena);
-
-        // Manejar el resultado según el tipo de dato devuelto
-        if (resultado.equals("UsuarioAdministrador")) {
-            return true;
-        } else if (resultado.equals("UsuarioNormal")) {
-            return false;
-        } else {
-            // Si el resultado no es un booleano, mostrar el mensaje de error
-            ms.missatgeError(resultado);
-            return null; // Retornar null para indicar que no se pudo determinar el estado del usuario
+        Usuario usuari = existeixUsuario(nombreUsuario);
+        if (usuari == null) {
+            ms.missatgeError("El usuario no existe.");
+            return;
         }
+
+        boolean res = comprobarUsuarioCredenciales(usuari, contrasena);
+        if (!res) {
+            ms.missatgeError("La contraseña es incorrecta.");
+            return;
+        }
+
+        Stage newStage = new Stage();
+        String titulo = "", resource = "";
+
+        if (usuari.getTipoUsuario() == TipoUsuario.ADMINISTRADOR) {
+            titulo = "Ventana de Administrador";
+            resource = "admin.fxml";
+        } else {
+            resource = "usuario-normal.fxml";
+            titulo = "Ventana de Usario Normal";
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(resource));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        newStage.setTitle(titulo);
+        newStage.setScene(scene);
+        newStage.show();
     }
 
+    private Usuario existeixUsuario(String nom) {
+        List<Usuario> admins = Usuario.retornaUsuario(TipoUsuario.ADMINISTRADOR.getNomArchivo());
+        for (Usuario admin : admins) {
+            if (admin.getNomUsuari().equals(nom)) {
+                return admin;
+            }
+        }
 
+        List<Usuario> usuaris = Usuario.retornaUsuario(TipoUsuario.USUARIO_NORMAL.getNomArchivo());
+        for (Usuario usuario : usuaris) {
+            if (usuario.getNomUsuari().equals(nom)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
 
-
-
+    private Boolean comprobarUsuarioCredenciales(Usuario u, String contrasena) {
+        if (u.getContrasena().equals(contrasena)) {
+            return true;
+        }
+        return false;
+    }
 }
