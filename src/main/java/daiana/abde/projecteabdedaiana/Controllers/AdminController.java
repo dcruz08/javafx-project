@@ -12,20 +12,37 @@ import vicent.Bellver.MissatgesJavaSwing;
 
 import java.util.List;
 
+
+/**
+ * Controlador de Administrador.
+ * Esta clase se encarga de gestionar la interfaz administrativa de la aplicación.
+ * Permite la creación, almacenamiento y listado de datos de usuario, así como la filtración de usuarios por su tipo.
+ * @author Abderrahim Ouabou
+ * @author Daiana Cruz Poma Daiana
+ * @version 1.2
+ */
 public class AdminController {
+
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
+
     static final String nomFitxerAdmin = TipoUsuario.ADMINISTRADOR.getNomArchivo();
+
     static final String nomFitxerUsuari = TipoUsuario.USUARIO_NORMAL.getNomArchivo();
+
     @FXML
     public TableView<Usuario> tbUsuarios;
+
     @FXML
     public TableColumn<Usuario, String> ColumnaTipoUsuario;
+
     @FXML
     public TableColumn<Usuario, String> ColumnaApellido;
+
     @FXML
     public TableColumn<Usuario, String> ColumnaNombre;
     @FXML
     public TableColumn<Usuario, String> ColumnaContrasena;
+
     @FXML
     public TableColumn<Usuario, String> ColumnaUsuario;
     @FXML
@@ -42,6 +59,9 @@ public class AdminController {
     private TextField ContrasenaField;
     // private final String[] tipoUsuarioChoice = {"Administrador", "Normal"};
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
         for (TipoUsuario tipo : TipoUsuario.values()) {
@@ -53,12 +73,24 @@ public class AdminController {
         listarUsuarios();
     }
 
+    /**
+     * Filtra por el tipo de usuario seleccionado.
+     *
+     * @return el nombre del archivo asociado con el tipo de usuario seleccionado.
+     */
     public String filtrarPortipoUsuarioSeleccionado() {
         if (cboTipoUsuari2.getValue().equals("Administrador")) {
             return nomFitxerAdmin;
         }
         return nomFitxerUsuari;
     }
+    /**
+     * Crea un nuevo usuario.
+     *
+     * @return el nuevo usuario si todos los campos están correctamente llenados; de lo contrario, null.
+     *
+     * @since 1.0
+     */
     private Usuario crearUsuario() {
         String usuario = UsuarioField.getText();
         String contrasena = ContrasenaField.getText();
@@ -74,6 +106,10 @@ public class AdminController {
         return new Usuario(usuario, nombre, apellido, contrasena, tipoUsuario);
     }
 
+    /**
+     * Guarda el nuevo usuario.
+     * Este método crea un nuevo usuario e intenta guardarlo. Si tiene éxito, la lista de usuarios se actualiza.
+     */
     public void guardarUsuario() {
         Usuario usuario = crearUsuario();
 
@@ -88,6 +124,10 @@ public class AdminController {
         }
     }
 
+    /**
+     * Filtra los usuarios por tipo seleccionado.
+     * Este método actualiza la tabla de usuarios para mostrar solo los usuarios del tipo seleccionado.
+     */
     public void filtrarPorTipoUsuario() {
         try {
             rellenarTabla(Usuario.retornaUsuario(filtrarPortipoUsuarioSeleccionado()));
@@ -97,6 +137,10 @@ public class AdminController {
     }
 
 
+    /**
+     * Lista todos los usuarios.
+     * Este método recupera todos los usuarios (tanto administradores como usuarios normales) y llena la tabla.
+     */
     public void listarUsuarios(){
         List<Usuario> listaAdmins = Usuario.retornaUsuario(nomFitxerAdmin);
         List<Usuario> listaUsuariosNormales = Usuario.retornaUsuario(nomFitxerUsuari);
@@ -107,6 +151,11 @@ public class AdminController {
         rellenarTabla(listaAdmins);
     }
 
+    /**
+     * Rellena la tabla de usuarios.
+     *
+     * @param usuarios la lista de usuarios a mostrar en la tabla.
+     */
     public void rellenarTabla(List<Usuario> usuarios) {
         ObservableList<Usuario> listUsuarios = FXCollections.observableArrayList(usuarios);
 
@@ -118,5 +167,6 @@ public class AdminController {
 
         tbUsuarios.setItems(listUsuarios);
     }
+
 
 }
