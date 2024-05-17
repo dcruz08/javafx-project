@@ -19,7 +19,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controlador de Inicio de Sesión.
+ * Esta clase se encarga de gestionar la interfaz de inicio de sesión de la aplicación.
+ * Permite la autenticación de usuarios y el cambio de vistas según el tipo de usuario.
+ * @author Daiana Cruz Poma Daiana
+ * @author Abderrahim Ouabou
+ * @version 1.1
+ */
 public class LoginController implements Initializable {
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
     @FXML
@@ -29,6 +36,14 @@ public class LoginController implements Initializable {
     static final Fitxers f = new Fitxers();
     static String archivoAdmins = TipoUsuario.ADMINISTRADOR.getNomArchivo();
     static String archivoUsuarios = TipoUsuario.USUARIO_NORMAL.getNomArchivo();
+
+    /**
+     * Inicia sesión.
+     * Este método se ejecuta cuando el usuario hace clic en el botón de inicio de sesión. Comprueba las credenciales
+     * del usuario y cambia la vista según el tipo de usuario.
+     *
+     * @throws IOException si hay un error al cargar las vistas.
+     */
     @FXML
     private void iniciarSesion() throws IOException {
         String nombreUsuario = UserLogin.getText();
@@ -57,6 +72,13 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Cambia la vista de la aplicación.
+     *
+     * @param resource el recurso FXML a cargar.
+     * @param titulo   el título de la nueva ventana.
+     * @throws IOException si hay un error al cargar el recurso.
+     */
     private void cambiarVista(String resource, String titulo) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(resource));
         Parent root = fxmlLoader.load();
@@ -67,6 +89,12 @@ public class LoginController implements Initializable {
         s.show();
     }
 
+    /**
+     * Comprueba si existe un usuario con el nombre dado.
+     *
+     * @param nom el nombre del usuario.
+     * @return el usuario si existe; de lo contrario, null.
+     */
     private Usuario existeixUsuario(String nom) {
         List<Usuario> admins = Usuario.retornaUsuario(archivoAdmins);
         for (Usuario admin : admins) {
@@ -84,13 +112,24 @@ public class LoginController implements Initializable {
         return null;
     }
 
+    /**
+     * Comprueba las credenciales del usuario.
+     *
+     * @param u          el usuario a comprobar.
+     * @param contrasena la contraseña a verificar.
+     * @return true si las credenciales son correctas; de lo contrario, false.
+     */
     private Boolean comprobarUsuarioCredenciales(Usuario u, String contrasena) {
-        if (u.getContrasena().equals(contrasena)) {
-            return true;
-        }
-        return false;
+        return u.getContrasena().equals(contrasena);
     }
 
+    /**
+     * Inicializa el controlador.
+     * Este método se llama automáticamente .
+     *
+     * @param location  la ubicación utilizada para resolver rutas relativas del archivo raíz o null si no se conoce la ubicación.
+     * @param resources .
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!f.existeix(archivoAdmins) || !f.existeix(".data")){
