@@ -23,6 +23,6 @@ public enum TipoUsuario {
     }
     public String getNomArchivo()
     {
-        return this.nomArchivo;
+        return ".data" + this.nomArchivo;
     }
 }

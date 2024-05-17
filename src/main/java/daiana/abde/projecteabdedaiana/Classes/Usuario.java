@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Usuario implements Serializable {
-    static final private String nomDir=".dat";
-    static final Fitxers f=new Fitxers();
+    static final private String nomDir=".data";
+    static final Fitxers f = new Fitxers();
 
     //<editor-fold desc="Variables">
     private int id;
@@ -61,7 +61,7 @@ public class Usuario implements Serializable {
     }
 
     public String getNomFitxer(){
-        return nomDir + tipoUsuario.getNomArchivo();
+        return tipoUsuario.getNomArchivo();
     }
     
     //</editor-fold>

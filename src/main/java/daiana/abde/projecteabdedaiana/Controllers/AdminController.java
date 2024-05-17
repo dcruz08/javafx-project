@@ -2,6 +2,7 @@ package daiana.abde.projecteabdedaiana.Controllers;
 
 import daiana.abde.projecteabdedaiana.Classes.TipoUsuario;
 import daiana.abde.projecteabdedaiana.Classes.Usuario;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import vicent.Bellver.MissatgesJavaSwing;
 
 import java.util.List;
-import java.util.Locale;
 
 public class AdminController {
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
@@ -19,7 +19,7 @@ public class AdminController {
     @FXML
     public TableView<Usuario> tbUsuarios;
     @FXML
-    public TableColumn<Usuario, TipoUsuario> ColumnaTipoUsuario;
+    public TableColumn<Usuario, String> ColumnaTipoUsuario;
     @FXML
     public TableColumn<Usuario, String> ColumnaApellido;
     @FXML
@@ -53,13 +53,10 @@ public class AdminController {
         listarUsuarios();
     }
 
-
-    public String tipoUsuarioSeleccionado() {
-        String usuario = cboTipoUsuari2.getValue();
-        if (usuario.equals("Administrador")) {
+    public String filtrarPortipoUsuarioSeleccionado() {
+        if (cboTipoUsuari2.getValue().equals("Administrador")) {
             return nomFitxerAdmin;
         }
-
         return nomFitxerUsuari;
     }
     private Usuario crearUsuario() {
@@ -85,22 +82,15 @@ public class AdminController {
         try {
             usuario.guardarUsuario();
             ms.missatgeInfo("El usuario se ha guardado correctamente.");
+            listarUsuarios();
         } catch (Exception e) {
             ms.missatgeError("Error al guardar el usuario.");
         }
     }
 
-    public boolean esAdmin() {
-        if (cboTipoUsuari.getValue().equals("Administrador")) {
-            return true;
-
-        }
-        return false;
-    }
-
     public void filtrarPorTipoUsuario() {
         try {
-            rellenarTabla(Usuario.retornaUsuario(tipoUsuarioSeleccionado()));
+            rellenarTabla(Usuario.retornaUsuario(filtrarPortipoUsuarioSeleccionado()));
         } catch (Exception e) {
             ms.missatgeError("Seleccione un usuario");
         }
@@ -109,20 +99,23 @@ public class AdminController {
     public void listarUsuarios(){
         List<Usuario> listaAdmins = Usuario.retornaUsuario(nomFitxerAdmin);
         List<Usuario> listaUsuariosNormales = Usuario.retornaUsuario(nomFitxerUsuari);
+        System.out.println("listando usuarios");
+        System.out.println(listaAdmins);
+        System.out.println(listaUsuariosNormales);
         listaAdmins.addAll(listaUsuariosNormales);
         rellenarTabla(listaAdmins);
     }
 
     public void rellenarTabla(List<Usuario> usuarios) {
-        ObservableList<Usuario> Usuario = FXCollections.observableArrayList(usuarios);
+        ObservableList<Usuario> listUsuarios = FXCollections.observableArrayList(usuarios);
 
         ColumnaUsuario.setCellValueFactory(new PropertyValueFactory<>("nomUsuari"));
         ColumnaContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
         ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        ColumnaTipoUsuario.setCellValueFactory(new PropertyValueFactory<>("tipoUsuario"));
+        ColumnaTipoUsuario.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getTipoUsuario().getValue()));
 
-        tbUsuarios.setItems(Usuario);
+        tbUsuarios.setItems(listUsuarios);
     }
 
 }
