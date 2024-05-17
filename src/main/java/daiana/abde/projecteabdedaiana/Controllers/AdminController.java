@@ -96,6 +96,7 @@ public class AdminController {
         }
     }
 
+
     public void listarUsuarios(){
         List<Usuario> listaAdmins = Usuario.retornaUsuario(nomFitxerAdmin);
         List<Usuario> listaUsuariosNormales = Usuario.retornaUsuario(nomFitxerUsuari);
