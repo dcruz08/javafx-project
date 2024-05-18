@@ -6,11 +6,19 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+/**
+ * Clase Producto.
+ * Esta clase se encarga de gestionar los productos de la aplicación.
+ * Permite guardar, listar y eliminar productos.
+ * @autor Daiana Cruz
+ * @version 1.0
+ * @since 2021-05-17
+ * @see Fitxers
+ */
 public class Producto implements Serializable {
-    static final String dir = ".dat";
+    static final String dir = ".data";
     static final String nomFitxer = dir + "/productos.dat";
     static final Fitxers f = new Fitxers();
 
@@ -70,6 +78,11 @@ public class Producto implements Serializable {
 
     //<editor-fold desc="Methods">
 
+    /**
+     * Guardar producto.
+     *
+     * @throws Exception the exception
+     */
     public void guardarProducto() throws Exception {
         try {
             if (!f.existeix(dir))
@@ -80,7 +93,14 @@ public class Producto implements Serializable {
         }
     }
 
-    public void eliminaRegistreFitxerObjecte(String fitxer, String codigo) throws IOException {
+    /**
+     * Eliminar objeto de archivo.
+     *
+     * @param fitxer the fitxer
+     * @param codigo the codigo
+     * @throws IOException the io exception
+     */
+    public void eliminarObjetoDeArchivo(String fitxer, String codigo) throws IOException {
         List<Object> LObj = f.retornaFitxerObjecteEnLlista(fitxer);
         boolean primerRegistre = true;
         f.eliminarFitxerDirectori(fitxer);
@@ -99,9 +119,14 @@ public class Producto implements Serializable {
 
     }
 
+    /**
+     * Eliminar producto.
+     * Elimina el producto del archivo.
+     * @throws Exception the exception
+     */
     public void eliminarProducto() throws Exception {
         try {
-            eliminaRegistreFitxerObjecte(nomFitxer, this.getCodigoBarras());
+            eliminarObjetoDeArchivo(nomFitxer, this.getCodigoBarras());
         } catch (Exception e) {
             throw new Exception("Error al eliminar el producto.");
         }
@@ -113,6 +138,15 @@ public class Producto implements Serializable {
         }
         return productos;
     }
+
+    /**
+     * Listar productos list.
+     *
+     * @return the list
+     * @throws IOException            the io exception
+     * @throws InterruptedException   the interrupted exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     public static List<Producto> listarProductos() throws IOException, InterruptedException, ClassNotFoundException {
         return convertirAProductos(f.retornaFitxerObjecteEnLlista(nomFitxer));
     }

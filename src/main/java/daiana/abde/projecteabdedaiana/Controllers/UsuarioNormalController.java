@@ -27,7 +27,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UsuarioNormalController implements Initializable {
+/**
+ * Usuario normal controlador.
+ * Esta clase se encarga de gestionar la interfaz de usuario normal de la aplicación.
+ * Permite crear, guardar, listar y eliminar productos.
+ * @author Daiana Cruz
+ * @version 1.0
+ */
+public class UsuarioNormalController {
     @FXML
     private ImageView imgCodigoBarras;
     @FXML
@@ -56,6 +63,13 @@ public class UsuarioNormalController implements Initializable {
     private TableColumn<Producto, LocalDate> fechaCaducidad;
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
 
+    /**
+     * Eliminar producto.
+     * Este método se ejecuta cuando el usuario hace clic en el botón de eliminar producto.
+     * Elimina el producto seleccionado de la tabla y del archivo.
+     * Si el usuario confirma la acción, se elimina el producto.
+     * @see Producto#eliminarProducto()
+     */
     public void eliminarProducto() {
         Producto productoSeleccionado = tbProductos.getSelectionModel().getSelectedItem();
 
@@ -70,30 +84,30 @@ public class UsuarioNormalController implements Initializable {
         }
     }
 
-    public void rellenarTablaProductos() {
+    /**
+     * Rellenar tabla productos.
+     * Este método se encarga de rellenar la tabla de productos con los datos de los productos almacenados en el archivo.
+     * @throws IOException si hay un error al cargar los datos del archivo.
+     */
+    public void rellenarTablaProductos() throws IOException, InterruptedException, ClassNotFoundException {
         tbProductos.setEditable(false);
-        try {
-            List<Producto> productos = Producto.listarProductos();
-            System.out.println(productos);
+        List<Producto> productos = Producto.listarProductos();
 
-            ObservableList<Producto> lProductos = FXCollections.observableList(productos);
-            codigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarras"));
-            nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-            precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-            descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-            fechaCaducidad.setCellValueFactory(new PropertyValueFactory<>("fechaCaducidad"));
+        ObservableList<Producto> lProductos = FXCollections.observableList(productos);
+        codigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarras"));
+        nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        fechaCaducidad.setCellValueFactory(new PropertyValueFactory<>("fechaCaducidad"));
 
-            tbProductos.setItems(lProductos);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        tbProductos.setItems(lProductos);
     }
 
+    /**
+     * Crear producto.
+     * Este método se ejecuta cuando el usuario hace clic en el botón de crear producto.
+     * Crea un nuevo producto con los datos introducidos en el formulario y lo guarda en el archivo .dat.
+     */
     public void crearProducto() {
         String codigo = numCodigoBarras.getText();
         String nom = nomProducto.getText();
@@ -130,24 +144,38 @@ public class UsuarioNormalController implements Initializable {
         return writableImage;
     }
 
-    public void generarCodigoBarras() {
-        String codigoBarras = numCodigoBarras.getText();
+    /**
+     * Generar codigo barras.
+     * Este método genera una imagen del código de barras con el número introducido en el campo de texto.
+     * @param codigoBarras el número del código de barras a generar.
+     */
+    public void generarCodigoBarras(String codigoBarras) {
         UPCAWriter upcAWriter = new UPCAWriter();
-        BitMatrix bitmap = upcAWriter.encode(codigoBarras, BarcodeFormat.UPC_A, 80, 100);
+        BitMatrix bitmap = upcAWriter.encode(codigoBarras, BarcodeFormat.UPC_A, 80, 90);
         Image imgCodigo = convertirAImage(MatrixToImageWriter.toBufferedImage(bitmap));
         imgCodigoBarras.setImage(imgCodigo);
     }
 
+    /**
+     * Validar codigo barras.
+     * Este método se ejecuta cuando el usuario hace clic en el botón de validar código de barras.
+     * Comprueba si el código de barras introducido tiene 11 dígitos.
+     * Si es correcto, genera la imagen del código de barras y habilita el formulario de producto.
+     */
     public void validarCodigoBarras() {
         String codigo = numCodigoBarras.getText();
         if (codigo.length() != 11) {
             ms.missatgeError("Codigo de barras incorrecto. Debe ser de 11 dígitos.");
         } else {
-            generarCodigoBarras();
+            generarCodigoBarras(codigo);
             dadesProductoPane.setDisable(false);
         }
     }
 
+    /**
+     * Resetear formulario producto.
+     * Este método resetea los campos del formulario de producto y deshabilita el formulario de los datos del producto.
+     */
     public void resetearFormularioProducto() {
         Image img = null;
         try {
@@ -165,8 +193,14 @@ public class UsuarioNormalController implements Initializable {
         caducidadProducto.setValue(null);
         dadesProductoPane.setDisable(true);
     }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+
+    /**
+     * Initialize.
+     * Este método se ejecuta al cargar la vista de usuario normal.
+     * Rellena la tabla de productos con los datos almacenados en el archivo.
+     * @throws IOException si hay un error al cargar los datos del archivo.
+     */
+    public void initialize() throws IOException, InterruptedException, ClassNotFoundException {
         dadesProductoPane.setDisable(true);
         rellenarTablaProductos();
     }

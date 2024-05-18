@@ -6,7 +6,6 @@ import daiana.abde.projecteabdedaiana.Classes.Usuario;
 import daiana.abde.projecteabdedaiana.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -15,19 +14,17 @@ import javafx.stage.Stage;
 import vicent.Bellver.MissatgesJavaSwing;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
- * Controlador de Inicio de Sesión.
+ * Controlador de Login.
  * Esta clase se encarga de gestionar la interfaz de inicio de sesión de la aplicación.
  * Permite la autenticación de usuarios y el cambio de vistas según el tipo de usuario.
- * @author Daiana Cruz Poma Daiana
+ * @author Daiana Cruz
  * @author Abderrahim Ouabou
- * @version 1.1
+ * @version 1.0
  */
-public class LoginController implements Initializable {
+public class LoginController {
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
     @FXML
     private TextField UserLogin;
@@ -51,13 +48,13 @@ public class LoginController implements Initializable {
 
         Stage stage = (Stage) UserLogin.getScene().getWindow();
 
-        Usuario usuari = existeixUsuario(nombreUsuario);
+        Usuario usuari = existeUsuario(nombreUsuario);
         if (usuari == null) {
             ms.missatgeError("El usuario no existe.");
             return;
         }
 
-        boolean esValido = comprobarUsuarioCredenciales(usuari, contrasena);
+        boolean esValido = comprobarCredenciales(usuari, contrasena);
         if (!esValido) {
             ms.missatgeError("La contraseña es incorrecta.");
             return;
@@ -79,7 +76,7 @@ public class LoginController implements Initializable {
      * @param titulo   el título de la nueva ventana.
      * @throws IOException si hay un error al cargar el recurso.
      */
-    private void cambiarVista(String resource, String titulo) throws IOException {
+    public void cambiarVista(String resource, String titulo) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(resource));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
@@ -95,7 +92,7 @@ public class LoginController implements Initializable {
      * @param nom el nombre del usuario.
      * @return el usuario si existe; de lo contrario, null.
      */
-    private Usuario existeixUsuario(String nom) {
+    public Usuario existeUsuario(String nom) {
         List<Usuario> admins = Usuario.retornaUsuario(archivoAdmins);
         for (Usuario admin : admins) {
             if (admin.getNomUsuari().equals(nom)) {
@@ -113,25 +110,22 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * Comprueba las credenciales del usuario.
+     * Compara las credenciales recuperadas del campo de texto y las credenciales almacenadas del usuario.
      *
-     * @param u          el usuario a comprobar.
+     * @param usuario  objeto de la clase usuario.
      * @param contrasena la contraseña a verificar.
      * @return true si las credenciales son correctas; de lo contrario, false.
      */
-    private Boolean comprobarUsuarioCredenciales(Usuario u, String contrasena) {
-        return u.getContrasena().equals(contrasena);
+    public Boolean comprobarCredenciales(Usuario usuario, String contrasena) {
+        return usuario.getContrasena().equals(contrasena);
     }
 
     /**
      * Inicializa el controlador.
-     * Este método se llama automáticamente .
-     *
-     * @param location  la ubicación utilizada para resolver rutas relativas del archivo raíz o null si no se conoce la ubicación.
-     * @param resources .
+     * Este método se ejecuta automáticamente al cargar la vista. Comprueba si hay un usuario administrador y, si no
+     * existe, muestra un mensaje de advertencia.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         if(!f.existeix(archivoAdmins) || !f.existeix(".data")){
             try {
                 cambiarVista("admin.fxml", "Ventana de Administrador");

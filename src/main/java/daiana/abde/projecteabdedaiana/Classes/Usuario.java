@@ -6,8 +6,15 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * Clase Usuario.
+ * Esta clase se encarga de gestionar los usuarios de la aplicación.
+ * Permite guardar, listar y eliminar usuarios.
+ * @autor Abderrahim Ouabou
+ * @version 1.0
+ * @see Fitxers
+ */
 public class Usuario implements Serializable {
     static final private String nomDir=".data";
     static final Fitxers f = new Fitxers();
@@ -66,15 +73,27 @@ public class Usuario implements Serializable {
     
     //</editor-fold>
 
-    //<editor-fold desc="Mètodes">
+    /**
+     * Guardar usuario.
+     * Verifica si el directorio existe, si no lo crea.
+     * Guarda un usuario en un archivo.
+     * @throws IOException the io exception
+     */
+//<editor-fold desc="Mètodes">
     public void guardarUsuario() throws IOException {
         if (!f.existeix(nomDir))
             f.creaDirectori(nomDir);
-        String nombreArchivo = getNomFitxer();
-        f.escriuobjecteFitxer(this, nombreArchivo, true);
+        f.escriuobjecteFitxer(this, getNomFitxer(), true);
     }
 
-    public static List<Usuario> converteixAUsuario(List<Object> contingut){
+
+    /**
+     * Convertir a usuarios list.
+     *
+     * @param contingut una lista de objetos a convertir a la clase Usuario.
+     * @return una lista de usuarios.
+     */
+    public static List<Usuario> convertirAUsuarios(List<Object> contingut){
         List<Usuario> lUsuario=new ArrayList<>();
         for (Object o: contingut){
             lUsuario.add((Usuario) o);
@@ -82,8 +101,15 @@ public class Usuario implements Serializable {
         return lUsuario;
 
     }
+
+    /**
+     * Retorna usuario list.
+     * Retorna una llista de usuaris.
+     * @param nombreArchivo el nombre del archivo que contiene los objetos.
+     * @return la lista de usuarios.
+     */
     public static List<Usuario> retornaUsuario(String nombreArchivo) {
-        return converteixAUsuario(f.retornaFitxerObjecteEnLlista(nombreArchivo));
+        return convertirAUsuarios(f.retornaFitxerObjecteEnLlista(nombreArchivo));
     }
     //</editor-fold>
 
