@@ -20,17 +20,17 @@
                         <TextField fx:id="UsuarioField" layoutX="63.0" layoutY="175.0" />
                         <Label layoutX="63.0" layoutY="147.0" text="Usuario" />
                         <Label layoutX="300.0" layoutY="147.0" text="Contraseña">
-                     <font>
-                        <Font name="System Bold" size="11.0" />
-                     </font></Label>
+                            <font>
+                                <Font name="System Bold" size="11.0" />
+                            </font></Label>
                         <TextField fx:id="ContrasenaField" layoutX="300.0" layoutY="175.0" />
-                        <Label layoutX="56.0" layoutY="212.0" text="Tipo de usuario" />
-                        <Button fx:id="btnCrear" layoutX="60.0" layoutY="287.0" mnemonicParsing="false" onAction="#guardarUsuario" text="Crear" />
+                        <Label layoutX="63.0" layoutY="213.0" text="Tipo de usuario" />
+                        <Button fx:id="btnCrear" layoutX="270.0" layoutY="287.0" mnemonicParsing="false" onAction="#guardarUsuario" text="Crear" />
                         <Label layoutX="61.0" layoutY="73.0" text="Nombre" />
                         <Label layoutX="300.0" layoutY="73.0" text="Apellido" />
                         <TextField fx:id="NombreField" layoutX="64.0" layoutY="99.0" />
                         <TextField fx:id="ApellidoField" layoutX="300.0" layoutY="99.0" />
-                        <ComboBox fx:id="cboTipoUsuari" layoutX="62.0" layoutY="230.0" prefWidth="150.0" />
+                        <ComboBox fx:id="cboTipoUsuari" layoutX="64.0" layoutY="239.0" prefWidth="150.0" />
                     </children>
                 </AnchorPane>
             </content>
@@ -39,16 +39,16 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView fx:id="tbUsuarios" layoutX="58.0" layoutY="49.0" prefHeight="250.0" prefWidth="480.0">
+                        <TableView fx:id="tbUsuarios" layoutX="21.0" layoutY="54.0" prefHeight="292.0" prefWidth="560.0">
                             <columns>
-                                <TableColumn fx:id="ColumnaUsuario" prefWidth="75.0" text="Usuario " />
-                                <TableColumn fx:id="ColumnaContrasena" prefWidth="75.0" text="Contraseña" />
-                                <TableColumn fx:id="ColumnaNombre" prefWidth="97.5999755859375" text="Nombre" />
-                                <TableColumn fx:id="ColumnaApellido" prefWidth="97.5999755859375" text="Apellido" />
-                                <TableColumn fx:id="ColumnaTipoUsuario" prefWidth="99.99997558593748" text="Tipo de Usuario" />
+                                <TableColumn fx:id="ColumnaUsuario" prefWidth="94.0" text="Usuario " />
+                                <TableColumn fx:id="ColumnaContrasena" prefWidth="109.0" text="Contraseña" />
+                                <TableColumn fx:id="ColumnaNombre" prefWidth="124.0" text="Nombre" />
+                                <TableColumn fx:id="ColumnaApellido" prefWidth="114.0" text="Apellido" />
+                                <TableColumn fx:id="ColumnaTipoUsuario" prefWidth="117.0" resizable="false" text="Tipo Usuario" />
                             </columns>
                         </TableView>
-                        <Button id="button" fx:id="btnMostrar" layoutX="337.0" layoutY="15.0" mnemonicParsing="false" onAction="#filtrarPorTipoUsuario" text="Mostrar" />
+                        <Button id="button" fx:id="btnMostrar" layoutX="340.0" layoutY="13.0" mnemonicParsing="false" onAction="#filtrarPorTipoUsuario" prefHeight="20.0" prefWidth="92.0" text="Mostrar" />
                         <ComboBox fx:id="cboTipoUsuari2" layoutX="149.0" layoutY="15.0" prefWidth="150.0" />
                     </children>
                 </AnchorPane>
