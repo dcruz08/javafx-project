@@ -33,8 +33,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'daiana.abde.projecteabdedaiana'
-  mainClass = 'daiana.abde.projecteabdedaiana.HelloApplication'
+  mainModule = 'daiana.abde.projecte'
+  mainClass = 'daiana.abde.projecte.HelloApplication'
 }
 
 javafx {

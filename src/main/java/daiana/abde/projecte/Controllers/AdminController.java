@@ -1,7 +1,7 @@
-package daiana.abde.projecteabdedaiana.Controllers;
+package daiana.abde.projecte.Controllers;
 
-import daiana.abde.projecteabdedaiana.Classes.TipoUsuario;
-import daiana.abde.projecteabdedaiana.Classes.Usuario;
+import daiana.abde.projecte.Classes.TipoUsuario;
+import daiana.abde.projecte.Classes.Usuario;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,13 +1,14 @@
-package daiana.abde.projecteabdedaiana.Controllers;
+package daiana.abde.projecte.Controllers;
 
 import abderrahim.ouabou.Fitxers;
-import daiana.abde.projecteabdedaiana.Classes.TipoUsuario;
-import daiana.abde.projecteabdedaiana.Classes.Usuario;
-import daiana.abde.projecteabdedaiana.HelloApplication;
+import daiana.abde.projecte.Classes.TipoUsuario;
+import daiana.abde.projecte.Classes.Usuario;
+import daiana.abde.projecte.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,6 +27,10 @@ import java.util.List;
  */
 public class LoginController {
     static final MissatgesJavaSwing ms = new MissatgesJavaSwing();
+    @FXML
+    public Button btnLogin;
+    @FXML
+    public Button btnNoCredentials;
     @FXML
     private TextField UserLogin;
     @FXML
@@ -61,9 +66,9 @@ public class LoginController {
         }
 
         if (usuari.getTipoUsuario() == TipoUsuario.ADMINISTRADOR) {
-            cambiarVista("admin.fxml", "Ventana de Administrador");
+            cambiarVista("admin.fxml", "Ventana de Administrador | Grup 10 (Daiana i Abdel)");
         } else {
-            cambiarVista("usuario-normal.fxml", "Ventana de Usuario Normal");
+            cambiarVista("usuario-normal.fxml", "Ventana de Usuario | Grup 10 (Daiana i Abdel)");
         }
 
         stage.close();
@@ -121,18 +126,28 @@ public class LoginController {
     }
 
     /**
+     * Método que carga la vista de administrador cuando no existe ningún usuario administrador.
+     */
+    public void accederSinCredenciales(){
+        try {
+            cambiarVista("admin.fxml", "Administrador | Grup 10 (Daiana i Abdel)");
+            Stage stage = (Stage) UserLogin.getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            ms.missatgeError("Error al cargar la vista de administrador.");
+        }
+    }
+    /**
      * Inicializa el controlador.
      * Este método se ejecuta automáticamente al cargar la vista. Comprueba si hay un usuario administrador y, si no
      * existe, muestra un mensaje de advertencia.
      */
     public void initialize() {
         if(!f.existeix(archivoAdmins) || !f.existeix(".data")){
-            try {
-                cambiarVista("admin.fxml", "Ventana de Administrador");
-                ms.missatgeInfo("Debe crear un usuario administrador.");
-            } catch (IOException e) {
-                ms.missatgeError("Error al cargar la vista de administrador.");
-            }
+            ms.missatgeInfo("Debe crear un usuario administrador.");
+            btnNoCredentials.setVisible(true);
+        } else {
+            btnNoCredentials.setVisible(false);
         }
     }
 }

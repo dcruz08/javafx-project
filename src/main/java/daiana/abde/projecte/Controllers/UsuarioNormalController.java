@@ -1,4 +1,4 @@
-package daiana.abde.projecteabdedaiana.Controllers;
+package daiana.abde.projecte.Controllers;
 
 import com.google.zxing.BarcodeFormat;
 import javafx.scene.control.*;
@@ -6,12 +6,11 @@ import javafx.scene.control.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.oned.UPCAWriter;
-import daiana.abde.projecteabdedaiana.Classes.Producto;
-import daiana.abde.projecteabdedaiana.HelloApplication;
+import daiana.abde.projecte.Classes.Producto;
+import daiana.abde.projecte.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,10 +21,8 @@ import vicent.Bellver.MissatgesJavaSwing;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * Usuario normal controlador.

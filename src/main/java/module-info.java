@@ -1,4 +1,4 @@
-module daiana.abde.projecteabdedaiana {
+module daiana.abde.projecte {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -10,12 +10,12 @@ module daiana.abde.projecteabdedaiana {
 
 
 
-    opens daiana.abde.projecteabdedaiana to javafx.fxml;
-    exports daiana.abde.projecteabdedaiana;
+    opens daiana.abde.projecte to javafx.fxml;
+    exports daiana.abde.projecte;
 
-    opens daiana.abde.projecteabdedaiana.Controllers to javafx.fxml;
-    exports daiana.abde.projecteabdedaiana.Controllers;
+    opens daiana.abde.projecte.Controllers to javafx.fxml;
+    exports daiana.abde.projecte.Controllers;
 
-    exports daiana.abde.projecteabdedaiana.Classes;
-    opens daiana.abde.projecteabdedaiana.Classes to javafx.fxml;
+    exports daiana.abde.projecte.Classes;
+    opens daiana.abde.projecte.Classes to javafx.fxml;
 }

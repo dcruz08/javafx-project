@@ -1,4 +1,4 @@
-package daiana.abde.projecteabdedaiana.Classes;
+package daiana.abde.projecte.Classes;
 
 public enum TipoUsuario {
     ADMINISTRADOR("Administrador", "/administradors.dat"),
