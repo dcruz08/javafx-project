@@ -105,6 +105,10 @@ public class Producto implements Serializable {
         boolean primerRegistre = true;
         f.eliminarFitxerDirectori(fitxer);
 
+        if (LObj.isEmpty()) {
+            f.escriuobjecteFitxer(null, fitxer, false);
+        }
+
         for (Object o : LObj) {
             Producto p = (Producto) o;
             if (!p.getCodigoBarras().equals(codigo)) {
@@ -124,11 +128,11 @@ public class Producto implements Serializable {
      * Elimina el producto del archivo.
      * @throws Exception the exception
      */
-    public void eliminarProducto() throws Exception {
+    public void eliminarProducto() throws IOException {
         try {
             eliminarObjetoDeArchivo(nomFitxer, this.getCodigoBarras());
-        } catch (Exception e) {
-            throw new Exception("Error al eliminar el producto.");
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
     }
     private static List<Producto> convertirAProductos(List <Object> lObj){

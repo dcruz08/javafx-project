@@ -86,6 +86,7 @@ public class LoginController {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Stage s = new Stage();
+        s.setResizable(false);
         s.setTitle(titulo);
         s.setScene(scene);
         s.show();
